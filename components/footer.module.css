@@ -1,0 +1,26 @@
+.container{
+    background: #000000;
+    color:white;
+    display: flex;
+    flex-direction: column;
+   /*-------------------*/
+   position: absolute;
+   bottom:0;
+   left:0;
+}
+
+.footer_section{
+    width:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .summary_section{
+    margin-left:20px;
+    margin-top:20px;
+} */
+
+.text{
+    width:25%;
+}
