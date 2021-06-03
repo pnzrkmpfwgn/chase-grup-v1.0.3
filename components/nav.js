@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './nav.module.css';
 import Loading from './Loading';
+import Dropdown from './dropdown';
 import {base_url,images_url,nav_url} from './urls';
 import {useEffect,useState} from 'react';
 export default  function Nav(){
@@ -26,6 +27,7 @@ export default  function Nav(){
         return <li key={i.id}><Link href={"/"+i.page.slug}><a className={styles.link}>{i.title}</a></Link> </li>
       })}
     </ul>
+    <Dropdown />
   </nav>
 }
  {/* <li>

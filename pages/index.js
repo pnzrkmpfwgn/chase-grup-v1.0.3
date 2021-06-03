@@ -1,10 +1,37 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import {useState,useContext} from 'react';
+import {Context} from '../context';
 
 export default function Home() {
+  const {state, dispatch} = useContext(Context)
   return (
-    <div> Home Page </div>
+    <div>
+    <p>index page</p>
+    <button
+      onClick={() =>
+        dispatch({
+          type: "login",
+          payload: "asdasdasd",
+        })
+      }
+    >
+      login
+    </button>
+    <button
+      onClick={() =>
+        dispatch({
+          type: "LOGGED_IN_USER",
+          payload: null,
+        })
+      }
+    >
+      logout
+    </button>
+    {JSON.stringify(state)}
+  </div>
+   /* <div> Home Page </div>*/
     /*<div className={styles.container}>
       <Head>
         <title>Create Next App</title>
