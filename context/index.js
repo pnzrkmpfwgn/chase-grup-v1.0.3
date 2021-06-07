@@ -1,10 +1,8 @@
 import {useReducer, createContext} from 'react';
-import {user} from './reducers/user';
 import {language} from './reducers/language';
 
 //initial state
 const initialState={
-    user:{},
     language:"TR"
 }
 
@@ -19,9 +17,8 @@ const combineReducers = (...reducers) => (state, action)=>{
 }
 
 const Provider = ({children}) => {
-    const [state, dispatch] = useReducer(combineReducers(language,user),initialState);
+    const [state, dispatch] = useReducer(combineReducers(language),initialState);
     const value = {state, dispatch};
-    console.log(state);
     return <Context.Provider value={value}> {children} </Context.Provider>
 }
 

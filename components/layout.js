@@ -2,6 +2,7 @@ import Coin from "./coin_info";
 import Nav from "./nav";
 import Footer from "./footer";
 import Head from "next/head";
+import Header from './Header';
 import styles from "./layout.module.css";
 
 export default function Layout({ children }) {
@@ -38,8 +39,8 @@ export default function Layout({ children }) {
           crossorigin="anonymous"
         ></link>
       </Head>
-      <Coin />
-      <Nav />
+      {/* <Coin /> */}
+      <Header />
       {/* <Deneme /> */}
       {children}
       <Footer />
