@@ -3,13 +3,14 @@
     width:100%;
     transition: 0.4s;
     position: fixed;
-    top:0;
+    top:5%;
     display:flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    padding: 50px 10px;
+    padding: 10px 5px;
     z-index: 99;
+    font-size:24px;
 }
 
 .links_container{
@@ -17,7 +18,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    font-size:24px;
+    
 }
 .link{
     position: relative;

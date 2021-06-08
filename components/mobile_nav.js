@@ -6,7 +6,7 @@ import Dropdown from "./dropdown";
 import { useEffect, useState, useContext } from "react";
 import { base_url, nav_url, en_nav_url, images_url } from "./urls";
 import { Context } from "../context";
-import { useMediaQuery } from "../utils/hooks";
+
 
 export default function Mobile() {
   const { state, dispatch } = useContext(Context);
@@ -75,11 +75,12 @@ export default function Mobile() {
           {logo === "" ? (
             <Loading />
           ) : (
-            <Image
-              src={logo}
-              width={dimensions.width}
-              height={dimensions.height}
-            />
+            <Link href="/"><a ><Image
+            src={logo}
+            width={dimensions.width}
+            height={dimensions.height}
+          /></a></Link>
+            
           )}
           <div>
             <i onClick={()=>setShow(!show)} className={styles.icon + " fa fa-bars fa-lg" }></i>

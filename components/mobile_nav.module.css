@@ -63,6 +63,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  margin-top:5px;
 }
 
 .icon_dropdown {
@@ -78,7 +79,7 @@
   align-items: center;
   width: 100%;
   position: fixed;
-  top: 0;
+  top: 6%;
   z-index: 10;
 }
 

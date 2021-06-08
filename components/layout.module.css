@@ -1,0 +1,11 @@
+.content{
+    height:215px;
+    width:100%;
+}
+
+@media(max-width:425px) {
+    .content{
+        height:100px;
+    }
+}
+

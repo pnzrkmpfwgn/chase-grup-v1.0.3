@@ -9,6 +9,7 @@ import { Context } from "../context";
 export default function Nav() {
   const { state, dispatch } = useContext(Context);
   const [style, setStyle] = useState({});
+  const [logoStyle,setLogoStyle] = useState({});
   const [logo, setLogo] = useState("");
   const [items, setItems] = useState([]);
   useEffect(async () => {
@@ -52,11 +53,21 @@ export default function Nav() {
     if (window.pageYOffset > 50) {
       setStyle({
         padding: "0",
+        fontSize:"20px"
       });
+      setLogoStyle({
+        transform:"scale(0.6)",
+        transition:"0.4s"
+      })
     } else {
       setStyle({
-        padding: "50px 10px",
+        padding: "10px 5px",
+        fontSize:"24px"
       });
+      setLogoStyle({
+        transform:"scale(1)",
+        transition:"0.4s"
+      })
     }
   };
 
@@ -68,12 +79,12 @@ export default function Nav() {
     };
   }, []);
   return (
-    <nav style={style} className={styles.navigation}>
+      <nav style={style} className={styles.navigation}>
       {logo === "" ? (
         <Loading />
       ) : (
         <Link href="/anasayfa">
-          <a>
+          <a style={logoStyle} >
             <Image src={base_url + logo} width={400} height={100}></Image>
           </a>
         </Link>
@@ -97,8 +108,8 @@ export default function Nav() {
           </ul>
           
         </div>
-    
       <Dropdown />
     </nav>
+  
   );
 }
