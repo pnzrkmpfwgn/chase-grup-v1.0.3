@@ -6,7 +6,6 @@ import {useMediaQuery} from '../utils/hooks';
 
 export default function Dropdown() {
     const {state,dispatch} = useContext(Context);
-    const [langArr,setLangArr] = useState([]);
 
   return <div className={styles.dropdown}>
   <button className={styles.dropbtn}> {state.language} <i className="fas fa-chevron-down" style={{marginLeft:"5px"}} ></i> </button>
