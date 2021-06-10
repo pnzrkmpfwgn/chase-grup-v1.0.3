@@ -52,7 +52,6 @@ export default function Mobile({data,logo}) {
       });
     }
   }, [window]);
-  console.log("MobileNav")
   return (
     <>
       <div className={styles.topnav}>

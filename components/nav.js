@@ -6,35 +6,12 @@ import Dropdown from "./dropdown";
 import { useEffect, useState, useContext } from "react";
 import { Context } from "../context";
 
-export default function NavSection({ logo, data }) {
+export default function NavSection({ logo, data, visible }) {
   const { state, dispatch } = useContext(Context);
   const [pathLogo, setPathLogo] = useState("");
   const [path, setPath] = useState("");
   const [style, setStyle] = useState({});
   const [logoStyle, setLogoStyle] = useState({});
-
-  const handleScroll = () => {
-    if (window.pageYOffset > 50) {
-      setStyle({
-        padding: "0",
-        fontSize: "20px",
-      });
-      setLogoStyle({
-        transform: "scale(0.6)",
-        transition: "0.4s",
-      });
-    } else {
-      setStyle({
-        padding: "10px 5px",
-        fontSize: "24px",
-      });
-      setLogoStyle({
-        transform: "scale(1)",
-        transition: "0.4s",
-      });
-    }
-  };
-  console.log("Nav");1
   useEffect(()=>{
     if (data!== undefined) {
       //Switch case de kafan karışmış tek bi data türü aynı anda 4 farklı slug gösteremez quantum bilgisayar daha icat olmadı
@@ -74,12 +51,26 @@ export default function NavSection({ logo, data }) {
   },[data])
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-   
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+    if(!visible){
+      setStyle({
+        padding: "0",
+        fontSize: "20px",
+      });
+      setLogoStyle({
+        transform: "scale(0.6)",
+        transition: "0.4s",
+      });
+    }else {
+      setStyle({
+        padding: "10px 5px",
+        fontSize: "24px",
+      });
+      setLogoStyle({
+        transform: "scale(1)",
+        transition: "0.4s",
+      });
+    }
+  }, [visible]);
   return (
     <nav style={style} className={styles.navigation}>
       {logo === "" ? (

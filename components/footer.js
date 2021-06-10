@@ -38,7 +38,6 @@ export default function FooterSection() {
         .then((data) => setAdress(data));
     }
   }, [state.language]);
-  console.log("Footer");
   return (
     <div className={styles.container}>
       {data === undefined ||

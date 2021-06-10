@@ -5,7 +5,7 @@ import {Context} from '../context';
 import Mobile from "./mobile_nav";
 import NavSection from "./nav";
 
-export default function Header() {
+export default function Header({visible}) {
   const {state,dispatch} =useContext(Context);
   const [logo, setLogo] = useState("");
   const [data, setData] = useState();
@@ -59,12 +59,9 @@ export default function Header() {
       }
     }
   },[state.language])
-  console.log("Header");
-  //Handlers
-  // useOnClickOutside-----------------------> We might not need this one
   return (
     <header>
-      <nav>{isBreakpoint ? <Mobile logo={logo} data={data} /> : <NavSection logo={logo} data={data} />}</nav>
+      <nav>{isBreakpoint ? <Mobile logo={logo} data={data} /> : <NavSection visible={visible} logo={logo} data={data} />}</nav>
     </header>
   );
 }
