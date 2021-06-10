@@ -3,7 +3,7 @@ import {  useMediaQuery } from "../utils/hooks";
 import {en_nav_url,nav_url,base_url,images_url} from './urls'
 import {Context} from '../context';
 import Mobile from "./mobile_nav";
-import Nav from "./nav";
+import NavSection from "./nav";
 
 export default function Header() {
   const {state,dispatch} =useContext(Context);
@@ -23,7 +23,7 @@ export default function Header() {
           }
         }
       })
-      if(state.language === "TR"){
+      if(state.language === "tr"){
         await fetch(nav_url,{method:"GET",signal:mobileController.signal}).then(res => res.json()).then(data =>{
           setData(data);
         })
@@ -40,7 +40,7 @@ export default function Header() {
           }
         }
       })
-      if(state.language === "TR"){
+      if(state.language === "tr"){
         await fetch(nav_url,{method:"GET",signal:desktopController.signal}).then(res => res.json()).then(data =>{
           setData(data)
         })
@@ -59,12 +59,12 @@ export default function Header() {
       }
     }
   },[state.language])
-  
+  console.log("Header");
   //Handlers
   // useOnClickOutside-----------------------> We might not need this one
   return (
     <header>
-      <nav>{isBreakpoint ? <Mobile logo={logo} data={data} /> : <Nav logo={logo} data={data} />}</nav>
+      <nav>{isBreakpoint ? <Mobile logo={logo} data={data} /> : <NavSection logo={logo} data={data} />}</nav>
     </header>
   );
 }

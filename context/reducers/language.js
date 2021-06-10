@@ -1,8 +1,8 @@
 export function language(state,action){
     switch(action.type){
-        case "TR":
+        case "tr":
             return{...state,language:action.payload}
-        case "EN":
+        case "en":
             return {...state,language:action.payload}
         default:
             return state;

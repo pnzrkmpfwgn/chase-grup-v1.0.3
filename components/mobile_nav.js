@@ -3,10 +3,13 @@ import Image from "next/image";
 import styles from "./mobile_nav.module.css";
 import Loading from "./Loading";
 import Dropdown from "./dropdown";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
+import {Context} from '../context';
 
 
 export default function Mobile({data,logo}) {
+  const {state,dispatch} = useContext(Context)
+  const [path,setPath] = useState("");
   const [show,setShow] = useState(false);
   const [window, setWindow] = useState(document.body.clientWidth);
   const [dimensions, setDimensions] = useState({
@@ -14,6 +17,15 @@ export default function Mobile({data,logo}) {
     height: 0,
   });
 
+  useEffect(()=>{
+    if(data!==undefined){
+      for(let i = 0 ; i < data.menu_item.length;i++){
+        if(data.menu_item[i].title === "Anasayfa" || data.menu_item[i].title === "Main Menu"){
+          setPath("/"+state.language+"/"+data.menu_item[i].page.slug);
+        }
+      }
+    }
+  },[state.language])
   useEffect(() => {
     const onResize = () => {
       setWindow(document.body.clientWidth);
@@ -40,6 +52,7 @@ export default function Mobile({data,logo}) {
       });
     }
   }, [window]);
+  console.log("MobileNav")
   return (
     <>
       <div className={styles.topnav}>
@@ -47,7 +60,7 @@ export default function Mobile({data,logo}) {
           {logo === "" ? (
             <Loading />
           ) : (
-            <Link href="/"><a ><Image
+            <Link href={path}><a ><Image
             src={logo}
             width={dimensions.width}
             height={dimensions.height}
@@ -66,7 +79,7 @@ export default function Mobile({data,logo}) {
             data.menu_item.map((i) => {
               return (
                 <li className={show ? styles.link + " " + styles.link_open : styles.link} key={i.id}>
-                  {i.title}
+                  <Link href={"/"+state.language+"/"+i.page.slug}><a onClick={()=>setShow(!show)} >{i.title}</a></Link>
                 </li>
               );
             })

@@ -1,10 +1,10 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+// import Head from "next/head";
+// import Image from "next/image";
+// import styles from "../styles/Home.module.css";
 import { useState, useContext } from "react";
-import { Context } from "../context";
+import { Context } from "../../context";
 
-export default function Home() {
+export default function AnasayfaPage() {
   const { state, dispatch } = useContext(Context);
   return (
     <div>

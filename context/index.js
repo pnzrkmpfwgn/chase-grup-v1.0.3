@@ -1,9 +1,9 @@
 import {useReducer, createContext} from 'react';
 import {language} from './reducers/language';
-
+import Cookies from 'js-cookie';
 //initial state
 const initialState={
-    language:"TR"
+    language:Cookies.get("language") || "tr"
 }
 
 //create context

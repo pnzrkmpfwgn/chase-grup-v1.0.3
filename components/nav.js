@@ -3,9 +3,13 @@ import Image from "next/image";
 import styles from "./nav.module.css";
 import Loading from "./Loading";
 import Dropdown from "./dropdown";
-import { useEffect, useState} from "react";
+import { useEffect, useState, useContext } from "react";
+import { Context } from "../context";
 
-export default function Nav({ logo, data }) {
+export default function NavSection({ logo, data }) {
+  const { state, dispatch } = useContext(Context);
+  const [pathLogo, setPathLogo] = useState("");
+  const [path, setPath] = useState("");
   const [style, setStyle] = useState({});
   const [logoStyle, setLogoStyle] = useState({});
 
@@ -30,10 +34,48 @@ export default function Nav({ logo, data }) {
       });
     }
   };
+  console.log("Nav");1
+  useEffect(()=>{
+    if (data!== undefined) {
+      //Switch case de kafan karışmış tek bi data türü aynı anda 4 farklı slug gösteremez quantum bilgisayar daha icat olmadı
+      for (let i = 0; i < data.menu_item.length; i++) {
+        switch(data.menu_item[i].title){
+          case "Anasayfa":
+            setPathLogo("/" + state.language + "/" + data.menu_item[i].page.slug);
+            setPath("/" + state.language + "/" + data.menu_item[i].page.slug);
+            break;
+          case "Main Menu":
+            setPathLogo("/" + state.language + "/" + data.menu_item[i].en_page.slug);
+            setPath("/" + state.language + "/" + data.menu_item[i].en_page.slug);
+            break;
+          case "Hakkımızda":
+            setPath("/" + state.language + "/" + data.menu_item[i].page.slug);
+            break;
+          case "About":
+            setPath("/" + state.language + "/" + data.menu_item[i].en_page.slug);
+            break;
+          case "Ofislerimiz":
+            setPath("/" + state.language + "/" + data.menu_item[i].page.slug);
+            break;
+          case "Our Offices":
+            setPath("/" + state.language + "/" + data.menu_item[i].en_page.slug);
+            break;
+          case "İletişim":
+            setPath("/" + state.language + "/" + data.menu_item[i].page.slug);
+            break;
+          case "Contact":
+            setPath("/" + state.language + "/" + data.menu_item[i].en_page.slug);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  },[data])
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
-
+   
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -43,7 +85,7 @@ export default function Nav({ logo, data }) {
       {logo === "" ? (
         <Loading />
       ) : (
-        <Link href="/anasayfa">
+        <Link href={pathLogo}>
           <a style={logoStyle}>
             <Image src={logo} width={400} height={100}></Image>
           </a>
@@ -58,9 +100,9 @@ export default function Nav({ logo, data }) {
             data.menu_item.map((i) => {
               return (
                 <li key={i.id}>
-                  <Link href={"/" + i.page.slug}>
+                  <Link href={path}>
                     <a className={styles.link}>{i.title}</a>
-                  </Link>{" "}
+                  </Link>
                 </li>
               );
             })

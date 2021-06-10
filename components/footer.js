@@ -13,7 +13,7 @@ import {
 } from "./urls";
 import styles from "./footer.module.css";
 
-export default function Footer() {
+export default function FooterSection() {
   const { state, dispatch } = useContext(Context);
   const [socialLinks, setSocialLinks] = useState();
   const [data, setData] = useState();
@@ -22,7 +22,7 @@ export default function Footer() {
     await fetch(social_media_url, { method: "GET" })
       .then((res) => res.json())
       .then((data) => setSocialLinks(data));
-    if (state.language === "TR") {
+    if (state.language === "tr") {
       await fetch(tr_summary_url, { method: "GET" })
         .then((res) => res.json())
         .then((data) => setData(data));
@@ -38,6 +38,7 @@ export default function Footer() {
         .then((data) => setAdress(data));
     }
   }, [state.language]);
+  console.log("Footer");
   return (
     <div className={styles.container}>
       {data === undefined ||

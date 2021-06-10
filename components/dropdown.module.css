@@ -37,7 +37,7 @@
   
 }
 
-.dropdown:hover .dropdown_content {
+.dropdown_hover .dropdown_content {
   display: block;
 }
 

@@ -13,6 +13,13 @@
     color:#dfdedb;
     opacity:0.5;
 }
+.last_entries{
+    margin-left:10px;
+    margin-right:10px;
+}
+.summary{
+    margin-right:10px;
+}
 .footer_section{
     width:100%;
     display:flex;
@@ -72,6 +79,11 @@
     }
     .summary{
         width:100%;
+        margin-left:0;
+    }
+    .last_entries{
+        margin-left: 0;
+        margin-right:0;
     }
 }
 
