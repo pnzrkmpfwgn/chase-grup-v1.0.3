@@ -1,55 +1,42 @@
 import Link from "next/link";
 import Image from "next/image";
+import {useRouter} from 'next/router'
 import styles from "./nav.module.css";
 import Loading from "./Loading";
 import Dropdown from "./dropdown";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext,useRef } from "react";
 import { Context } from "../context";
 
 export default function NavSection({ logo, data, visible }) {
   const { state, dispatch } = useContext(Context);
   const [pathLogo, setPathLogo] = useState("");
-  const [path, setPath] = useState("");
+  const [path, setPath] = useState([]);
   const [style, setStyle] = useState({});
   const [logoStyle, setLogoStyle] = useState({});
+  const router = useRouter();
+
+ /*use previous'su burada kullan redirect'ti buradanda trigerlayabiliriz */
+
   useEffect(()=>{
+    setPath([]);
     if (data!== undefined) {
-      //Switch case de kafan karışmış tek bi data türü aynı anda 4 farklı slug gösteremez quantum bilgisayar daha icat olmadı
       for (let i = 0; i < data.menu_item.length; i++) {
-        switch(data.menu_item[i].title){
-          case "Anasayfa":
+        if(state.language==="tr"){
+          setPath(slugs => [...slugs,data.menu_item[i].page.slug])
+        }else{
+          setPath(slugs => [...slugs,data.menu_item[i].en_page.slug] )
+        }
+        if(data.menu_item[i].title === "Anasayfa" ||  data.menu_item[i].title==="Main Menu"){
+          if(state.language==="tr"){
             setPathLogo("/" + state.language + "/" + data.menu_item[i].page.slug);
-            setPath("/" + state.language + "/" + data.menu_item[i].page.slug);
-            break;
-          case "Main Menu":
+          }else{
             setPathLogo("/" + state.language + "/" + data.menu_item[i].en_page.slug);
-            setPath("/" + state.language + "/" + data.menu_item[i].en_page.slug);
-            break;
-          case "Hakkımızda":
-            setPath("/" + state.language + "/" + data.menu_item[i].page.slug);
-            break;
-          case "About":
-            setPath("/" + state.language + "/" + data.menu_item[i].en_page.slug);
-            break;
-          case "Ofislerimiz":
-            setPath("/" + state.language + "/" + data.menu_item[i].page.slug);
-            break;
-          case "Our Offices":
-            setPath("/" + state.language + "/" + data.menu_item[i].en_page.slug);
-            break;
-          case "İletişim":
-            setPath("/" + state.language + "/" + data.menu_item[i].page.slug);
-            break;
-          case "Contact":
-            setPath("/" + state.language + "/" + data.menu_item[i].en_page.slug);
-            break;
-          default:
-            break;
+          }
         }
       }
     }
   },[data])
-
+  
   useEffect(() => {
     if(!visible){
       setStyle({
@@ -88,10 +75,10 @@ export default function NavSection({ logo, data, visible }) {
           {data === undefined ? (
             <Loading />
           ) : (
-            data.menu_item.map((i) => {
+            data.menu_item.map((i,index) => {
               return (
                 <li key={i.id}>
-                  <Link href={path}>
+                  <Link href={"/" + state.language + "/" + path[index]}>
                     <a className={styles.link}>{i.title}</a>
                   </Link>
                 </li>

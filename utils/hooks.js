@@ -113,3 +113,21 @@ export const useMediaQuery = (width) => {
 
     return targetReached;
 }
+
+// Hook
+export function usePrevious(value) {
+  // The ref object is a generic container whose current property is mutable ...
+  // ... and can hold any value, similar to an instance property on a class
+  const ref = useRef();
+  // Store current value in ref
+  console.log(value)
+  useEffect(() => {
+    if(value !== undefined){
+      ref.current = value;
+      console.log("Executed")
+    }
+  }, [value]); // Only re-run if value changes
+  // Return previous value (happens before update in useEffect above)
+  console.log(ref.current)  
+  return ref.current;
+}

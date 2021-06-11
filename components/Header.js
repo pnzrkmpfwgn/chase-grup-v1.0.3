@@ -1,9 +1,10 @@
 import { useEffect, useState, useContext } from "react";
-import {  useMediaQuery } from "../utils/hooks";
+import {  useMediaQuery,usePrevious } from "../utils/hooks";
 import {en_nav_url,nav_url,base_url,images_url} from './urls'
 import {Context} from '../context';
 import Mobile from "./mobile_nav";
 import NavSection from "./nav";
+import Loading from './Loading';
 
 export default function Header({visible}) {
   const {state,dispatch} =useContext(Context);
@@ -12,9 +13,10 @@ export default function Header({visible}) {
   const isBreakpoint = useMediaQuery(768);
 
   useEffect( async ()=>{
-
     const mobileController = new AbortController();
     const desktopController = new AbortController();
+    
+
     if(isBreakpoint){
       await fetch(images_url,{method:"GET",signal:mobileController.signal}).then(res => res.json()).then(data => {
         for(let i = 0 ; i < data.length; i++){
@@ -47,7 +49,7 @@ export default function Header({visible}) {
       }else{
       await fetch(en_nav_url,{method:"GET",signal:desktopController.signal}).then(res => res.json()).then(data =>{
         setData(data);
-      })
+      })  
       }
     }
 
@@ -60,6 +62,7 @@ export default function Header({visible}) {
     }
   },[state.language])
   return (
+    data===undefined ? <Loading /> :
     <header>
       <nav>{isBreakpoint ? <Mobile logo={logo} data={data} /> : <NavSection visible={visible} logo={logo} data={data} />}</nav>
     </header>

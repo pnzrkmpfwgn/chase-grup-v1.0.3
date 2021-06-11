@@ -9,7 +9,8 @@ import {Context} from '../context';
 
 export default function Mobile({data,logo}) {
   const {state,dispatch} = useContext(Context)
-  const [path,setPath] = useState("");
+  const [path,setPath] = useState([]);
+  const [pathLogo, setPathLogo] = useState("");
   const [show,setShow] = useState(false);
   const [window, setWindow] = useState(document.body.clientWidth);
   const [dimensions, setDimensions] = useState({
@@ -18,14 +19,24 @@ export default function Mobile({data,logo}) {
   });
 
   useEffect(()=>{
-    if(data!==undefined){
-      for(let i = 0 ; i < data.menu_item.length;i++){
-        if(data.menu_item[i].title === "Anasayfa" || data.menu_item[i].title === "Main Menu"){
-          setPath("/"+state.language+"/"+data.menu_item[i].page.slug);
+    setPath([]);
+    if(data!== undefined){
+      for (let i = 0; i < data.menu_item.length; i++) {
+        if(state.language==="tr"){
+          setPath(slugs => [...slugs,data.menu_item[i].page.slug])
+        }else{
+          setPath(slugs => [...slugs,data.menu_item[i].en_page.slug] )
+        }
+        if(data.menu_item[i].title === "Anasayfa" ||  data.menu_item[i].title==="Main Menu"){
+          if(state.language==="tr"){
+            setPathLogo("/" + state.language + "/" + data.menu_item[i].page.slug);
+          }else{
+            setPathLogo("/" + state.language + "/" + data.menu_item[i].en_page.slug);
+          }
         }
       }
     }
-  },[state.language])
+  },[data])
   useEffect(() => {
     const onResize = () => {
       setWindow(document.body.clientWidth);
@@ -59,7 +70,7 @@ export default function Mobile({data,logo}) {
           {logo === "" ? (
             <Loading />
           ) : (
-            <Link href={path}><a ><Image
+            <Link href={pathLogo}><a ><Image
             src={logo}
             width={dimensions.width}
             height={dimensions.height}
@@ -75,10 +86,10 @@ export default function Mobile({data,logo}) {
           {data === undefined ? (
             <Loading />
           ) : (
-            data.menu_item.map((i) => {
+            data.menu_item.map((i,index) => {
               return (
                 <li className={show ? styles.link + " " + styles.link_open : styles.link} key={i.id}>
-                  <Link href={"/"+state.language+"/"+i.page.slug}><a onClick={()=>setShow(!show)} >{i.title}</a></Link>
+                  <Link href={"/" + state.language + "/" + path[index]}><a onClick={()=>setShow(!show)} >{i.title}</a></Link>
                 </li>
               );
             })
