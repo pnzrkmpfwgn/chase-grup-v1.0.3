@@ -1,3 +1,4 @@
+const Cookies = require("js-cookie");
 module.exports = {
   images: {
     domains: [
@@ -10,6 +11,13 @@ module.exports = {
   To the poor soul who used the permenant option as true, just clean the browser cache and delete the .next folder and restart the server.
   */
   async redirects(){
+    if(Cookies.get("language") === undefined){
+      return[{
+        source:"/",
+        destination:"/tr/anasayfa",
+        permanent:false
+      }]
+    }
     return [
       {
         source:"/",

@@ -4,9 +4,9 @@ body {
   min-height: 100vh;
   padding: 0;
   margin: 0;
-  font-family:Poppins, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    background: #000000;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background: #000000;
 }
 
 a {
@@ -16,4 +16,28 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.page_404 {
+  background-image: url("../public/images/404.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 400px;
+
+  width: 100%;
+}
+
+.container_404 {
+  height: 900px;
+}
+
+@media (max-width: 425px) {
+  .page_404 {
+    height: 500px;
+    width: 100%;
+    background-size: contain;
+  }
+  .container_404{
+    height:400px
+  }
 }

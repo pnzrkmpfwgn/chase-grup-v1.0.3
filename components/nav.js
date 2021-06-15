@@ -1,44 +1,22 @@
 import Link from "next/link";
 import Image from "next/image";
-import {useRouter} from 'next/router'
 import styles from "./nav.module.css";
 import Loading from "./Loading";
 import Dropdown from "./dropdown";
-import { useEffect, useState, useContext,useRef } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useRouter } from "next/router";
 import { Context } from "../context";
 
-export default function NavSection({ logo, data, visible }) {
+
+export default function NavSection({ visible, logo,trData,trPath,enData,enPath}) {
   const { state, dispatch } = useContext(Context);
-  const [pathLogo, setPathLogo] = useState("");
-  const [path, setPath] = useState([]);
   const [style, setStyle] = useState({});
+  const [index, setIndex] = useState();
   const [logoStyle, setLogoStyle] = useState({});
   const router = useRouter();
 
- /*use previous'su burada kullan redirect'ti buradanda trigerlayabiliriz */
-
-  useEffect(()=>{
-    setPath([]);
-    if (data!== undefined) {
-      for (let i = 0; i < data.menu_item.length; i++) {
-        if(state.language==="tr"){
-          setPath(slugs => [...slugs,data.menu_item[i].page.slug])
-        }else{
-          setPath(slugs => [...slugs,data.menu_item[i].en_page.slug] )
-        }
-        if(data.menu_item[i].title === "Anasayfa" ||  data.menu_item[i].title==="Main Menu"){
-          if(state.language==="tr"){
-            setPathLogo("/" + state.language + "/" + data.menu_item[i].page.slug);
-          }else{
-            setPathLogo("/" + state.language + "/" + data.menu_item[i].en_page.slug);
-          }
-        }
-      }
-    }
-  },[data])
-  
   useEffect(() => {
-    if(!visible){
+    if (!visible) {
       setStyle({
         padding: "0",
         fontSize: "20px",
@@ -47,7 +25,7 @@ export default function NavSection({ logo, data, visible }) {
         transform: "scale(0.6)",
         transition: "0.4s",
       });
-    }else {
+    } else {
       setStyle({
         padding: "10px 5px",
         fontSize: "24px",
@@ -58,36 +36,57 @@ export default function NavSection({ logo, data, visible }) {
       });
     }
   }, [visible]);
+  useEffect(()=>{
+    if(trData !== undefined || enData !== undefined){
+      if(typeof index === "undefined"){
+        return;
+      }
+      if(state.language==="tr"){
+        router.push("/tr/" + trData.menu_item[index].page.slug)
+      }else{
+        router.push("/en/" + enData.menu_item[index].en_page.slug)
+      }
+    }
+  },[state.language])
   return (
-    <nav style={style} className={styles.navigation}>
+    <div style={style} className={styles.navigation}>
       {logo === "" ? (
         <Loading />
       ) : (
-        <Link href={pathLogo}>
+        <Link href={state.language === "tr" ? trPath : enPath}>
           <a style={logoStyle}>
-            <Image src={logo} width={400} height={100}></Image>
+            <Image src={logo} width={400} height={100} />
           </a>
         </Link>
       )}
-
       <div>
         <ul className={styles.links_container}>
-          {data === undefined ? (
+          {trData === undefined || enData === undefined ? (
             <Loading />
-          ) : (
-            data.menu_item.map((i,index) => {
+          ) : state.language === "tr" ? (
+            trData.menu_item.map((i, index) => {
               return (
                 <li key={i.id}>
-                  <Link href={"/" + state.language + "/" + path[index]}>
-                    <a className={styles.link}>{i.title}</a>
+                  <Link href={"/" + state.language + "/" + i.page.slug}>
+                    <a onClick={()=>setIndex(index)} className={styles.link}>{i.title}</a>
                   </Link>
                 </li>
+              );
+            })
+          ) : (
+            enData.menu_item.map((i, index) => {
+              return (
+                <li key={i.id}>
+                <Link href={"/" + state.language + "/" + i.en_page.slug}>
+                  <a onClick={()=>setIndex(index)} className={styles.link}>{i.title}</a>
+                </Link>
+              </li> 
               );
             })
           )}
         </ul>
       </div>
       <Dropdown />
-    </nav>
+    </div>
   );
 }
