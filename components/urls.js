@@ -9,3 +9,5 @@ export const tr_adresses_url = "http://localhost:1337/tr-adresses";
 export const social_media_url = "http://localhost:1337/social-medias";
 export const tr_about_url = "http://localhost:1337/tr-abouts";
 export const en_about_url = "http://localhost:1337/en-abouts";
+export const offices_url="http://localhost:1337/offices";
+export const en_offices_url="http://localhost:1337/en-offices";
