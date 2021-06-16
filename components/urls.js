@@ -11,3 +11,5 @@ export const tr_about_url = "http://localhost:1337/tr-abouts";
 export const en_about_url = "http://localhost:1337/en-abouts";
 export const offices_url="http://localhost:1337/offices";
 export const en_offices_url="http://localhost:1337/en-offices";
+export const contact_url="http://localhost:1337/contacts";
+export const en_contact_url="http://localhost:1337/en-contacts";
