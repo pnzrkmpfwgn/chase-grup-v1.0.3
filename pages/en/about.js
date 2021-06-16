@@ -1,11 +1,10 @@
 import Image from "next/image";
 import { en_about_url,base_url } from "../../components/urls";
-import { useEffect, useState, useContext } from "react";
-import { Context } from "../../context";
+import { useEffect, useState} from "react";
 import styles from "../../styles/about.module.css";
 import Loading from "../../components/Loading";
 export default function AboutPage() {
-  const { state, dispatch } = useContext(Context);
+
   const [info, setInfo] = useState({
     title: "",
     text: "",
