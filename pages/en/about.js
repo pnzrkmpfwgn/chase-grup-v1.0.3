@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { tr_about_url,base_url } from "../../components/urls";
+import { en_about_url,base_url } from "../../components/urls";
 import { useEffect, useState, useContext } from "react";
 import { Context } from "../../context";
 import styles from "../../styles/about.module.css";
 import Loading from "../../components/Loading";
-export default function HakkimizdaPage() {
+export default function AboutPage() {
   const { state, dispatch } = useContext(Context);
   const [info, setInfo] = useState({
     title: "",
@@ -14,9 +14,9 @@ export default function HakkimizdaPage() {
   const [image2, setImage2] = useState("");
   const [logos, setLogos] = useState([]);
   useEffect(async () => {
-    await fetch(tr_about_url)
+    await fetch(en_about_url)
       .then((res) => res.json())
-      .then((data) => {
+      .then((data) => { 
         setInfo({
           title: data[0].title,
           text: data[0].text,
@@ -26,9 +26,8 @@ export default function HakkimizdaPage() {
         setLogos(data[0].Logos);
       });
   }, []);
-  logos.map(i => console.log(base_url+i.url))
   return (
-    <div id="Hakkımızda" className={styles.container}>
+    <div id="About" className={styles.container}>
       <div className={styles.zigzag}></div>
       <h3 className={styles.title} > {typeof info.title !== "undefined" ? info.title : <Loading />} </h3>
 
