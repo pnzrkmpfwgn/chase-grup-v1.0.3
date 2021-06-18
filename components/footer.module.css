@@ -86,10 +86,15 @@
         margin-right:0;
     }
 }
-
-@media (min-width:320px){
+@media (max-width:768px) and (min-width:426px){
+    .container{
+        margin-top:0;
+    }
+}
+@media (max-width:425px){
     .container{
         font-size:15px;
+        margin-top:130vh;
     }
     .contact{
         font-size:15px;

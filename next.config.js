@@ -10,35 +10,41 @@ module.exports = {
   klasörünü silip serveri yeniden başlat
   To the poor soul who used the permenant option as true, just clean the browser cache and delete the .next folder and restart the server.
   */
-  async redirects(){
-    if(Cookies.get("language") === undefined){
-      return[{
-        source:"/",
-        destination:"/tr/anasayfa",
-        permanent:false
-      }]
-    }
+  async redirects() {
+    // if(typeof Cookies.get("language") === "undefined"){
+    //   return[{
+    //    ]
+    // }
     return [
       {
-        source:"/",
-        has:[{
-          type:"cookie",
-          key:"language",
-          value:"tr"
-        }],
-        destination:"/tr/anasayfa",
-        permanent:false
+        source: "/",
+        has: [
+          {
+            type: "cookie",
+            key: "language",
+            value: "tr",
+          },
+        ],
+        destination: "/tr/anasayfa",
+        permanent: false,
       },
       {
-        source:"/",
-        has:[{
-          type:"cookie",
-          key:"language",
-          value:"en"
-        }],
-        destination:"/en/main-menu",
-        permanent:false
-      }
-    ]
-  }
+        source: "/",
+        has: [
+          {
+            type: "cookie",
+            key: "language",
+            value: "en",
+          },
+        ],
+        destination: "/en/main-menu",
+        permanent: false,
+      },
+      {
+        source: "/",
+        destination: "/tr/anasayfa",
+        permanent: false,
+      },
+    ];
+  },
 };
