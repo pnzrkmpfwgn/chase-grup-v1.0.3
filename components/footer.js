@@ -72,7 +72,7 @@ export default function FooterSection() {
 
           <div title="Son Yazılar" className={styles.last_entries}>
             <hr style={{ opacity: 0.3 }}></hr>
-            <h3> {state.language === "TR" ? "Son Yazılar" : "Last Posts"} </h3>
+            <h3> {state.language === "tr" ? "Son Yazılar" : "Last Posts"} </h3>
             <ul className={styles.links}>
               <li>
                 <Link href="/">
@@ -93,7 +93,7 @@ export default function FooterSection() {
           </div>
           <div className={styles.contact} title="İletişim">
             <hr style={{ minWidth: "210px", opacity: 0.3 }}></hr>
-            <h3>{state.language === "TR" ? "İletişim" : "Contact"}</h3>
+            <h3>{state.language === "tr" ? "İletişim" : "Contact"}</h3>
             <address>
               {adress.map((i) => {
                 return (
