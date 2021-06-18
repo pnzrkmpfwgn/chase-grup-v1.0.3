@@ -26,7 +26,6 @@ export default function HakkimizdaPage() {
         setLogos(data[0].Logos);
       });
   }, []);
-  logos.map(i => console.log(base_url+i.url))
   return (
     <div id="Hakkımızda" className={styles.container}>
       <div className={styles.zigzag}></div>
