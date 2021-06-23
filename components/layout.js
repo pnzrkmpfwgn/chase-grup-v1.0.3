@@ -11,6 +11,7 @@ export default function Layout({ children }) {
       <div ref={ref} className={styles.content}></div>
       <Header visible={visible} breakpoint={isBreakpoint} />
       {children}
+      <div className={styles.content2}></div>
       <FooterSection />
     </>
   );
