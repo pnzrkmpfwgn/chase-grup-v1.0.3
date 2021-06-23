@@ -1,0 +1,30 @@
+.title{
+    color:white;
+    font-size:36px;
+    font-weight: bolder;
+}
+
+.stats_info{
+    display: flex;
+    flex-direction: row;
+    color:white;
+    opacity:0.6;
+    width:100%;
+    margin-bottom: 20px;
+}
+
+.article{
+    color:white;
+    font-size:18px;
+}
+.container{
+    width:50%;
+    margin-left:100px;
+}
+
+@media (max-width:425px) {
+    .container{
+        width:100%;
+        margin:0 10px;
+    }
+}
