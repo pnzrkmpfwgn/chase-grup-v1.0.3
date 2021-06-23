@@ -5,11 +5,19 @@ import Loading from "../../components/Loading";
 import Next from "../../components/nextArrow";
 import Previous from "../../components/prevArrow";
 import Slider from "react-slick";
-import { base_url, tr_rss_url, tr_slides_url } from "../../components/urls";
+import date from '../../utils/date';
+import {
+  base_url,
+  tr_post_url_limited,
+  tr_rss_url,
+  tr_slides_url,
+} from "../../components/urls";
 import { useEffect, useState } from "react";
-export default function MainMenuPage() {
-  const [state, setState] = useState();
+
+export default function MainMenuPage({ trData }) {
+  const [rssData, setRssData] = useState();
   const [slides, setSlides] = useState([]);
+
   const settings = {
     infinite: true,
     speed: 500,
@@ -35,7 +43,7 @@ export default function MainMenuPage() {
     await fetch(tr_rss_url, { method: "GET", signal: controller.signal })
       .then((res) => res.json())
       .then((data) => {
-        setState(data);
+        setRssData(data);
       });
     await fetch(tr_slides_url, { method: "GET", signal: controller.signal })
       .then((res) => res.json())
@@ -66,86 +74,62 @@ export default function MainMenuPage() {
       <div className={styles.container2}>
         <div className={styles.posts_container}>
           <div>
-            <h1 className={styles.title} style={{ color: "white" }}>
+            <h1
+              className={styles.title}
+              style={{ color: "white", fontWeight: "bold" }}
+            >
               {" "}
               {"KRİPTO PARA HABERLERİ"}{" "}
             </h1>
           </div>
-          <div className={styles.posts} style={{ color: "white" }}>
-            <div className={styles.post}>
-              <Image className={styles.post_image} src="/images/photo.jpeg" width={300} height={300} />
-              <Link href="/">
-                <a>asdasd</a>
-              </Link>
-              <p>asfalsfkslasg....</p>
-              <div className={styles.post_stats}>
-                <i className="far fa-clock" style={{ marginRight: "10px" }}>
-                  {" "}
-                  asdasd
-                </i>
-                <i className="far fa-eye"> asdasdasd</i>
-              </div>
-            </div>
-            <div className={styles.post}>
-              <Image className={styles.post_image} src="/images/photo.jpeg" width={300} height={300} />
-              <Link href="/">
-                <a className={styles.title} >asdasdasdasdasdasdasd</a>
-              </Link>
-              <p className={styles.text}>
-                asfalsfkslasgasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd....
-              </p>
-              <div className={styles.post_stats}>
-                <i className="far fa-clock" style={{ marginRight: "10px" }}>
-                  {" "}
-                  asdasd
-                </i>
-                <i className="far fa-eye"> asdasdasd</i>
-              </div>
-            </div>
-            <div className={styles.post}>
-              <Image className={styles.post_image} src="/images/photo.jpeg" width={300} height={300} />
-              <Link href="/">
-                <a>asdasd</a>
-              </Link>
-              <p>asfalsfkslasg....</p>
-              <div className={styles.post_stats}>
-                <i className="far fa-clock" style={{ marginRight: "10px" }}>
-                  {" "}
-                  asdasd
-                </i>
-                <i className="far fa-eye"> asdasdasd</i>
-              </div>
-            </div>
-            <div className={styles.post}>
-              <Image className={styles.post_image} src="/images/photo.jpeg" width={300} height={300} />
-              <Link href="/">
-                <a>asdasd</a>
-              </Link>
-              <p>asfalsfkslasg....</p>
-              <div className={styles.post_stats}>
-                <i className="far fa-clock" style={{ marginRight: "10px" }}>
-                  {" "}
-                  asdasd
-                </i>
-                <i className="far fa-eye"> asdasdasd</i>
-              </div>
-            </div>
+          <div style={{ color: "white" }} className={styles.posts}>
+            {typeof trData != "undefined" ? (
+              trData.map((post) => (
+                <div className={styles.post} key={post.id}>
+                  <Link href={`/tr/posts/${post.id}`}>
+                    <a className={styles.link}>
+                      <Image
+                        className={styles.image}
+                        src={
+                          post.image.formats.medium === undefined
+                            ? base_url + post.image.url
+                            : base_url + post.image.formats.medium.url
+                        }
+                        width={400}
+                        height={300}
+                      ></Image>
+                      {post.title}
+                    </a>
+                  </Link>
+                  <p className={styles.excerpt}>{post.excerpt}</p>
+                  <div styles={styles.post_stats}>
+                    <i className={"far fa-clock"}style={{ marginRight: "10px" }}> {date(post.created_at,"tr")}</i>
+                    <i className={"far fa-eye"}> {post.views}</i>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <Loading />
+            )}
+          <Link href="/tr/dahafazlaposta"><a className={styles.more_posts} >Daha fazla haber</a></Link>
+
           </div>
         </div>
+
         <aside className={styles.aside_content}>
-            <div
-              className={ styles.coin_table + " coinmarketcap-currency-widget"}
-              data-currencyid="1"
-              data-base="USD"
-              data-secondary=""
-              data-ticker="true"
-              data-rank="true"
-              data-marketcap="true"
-              data-volume="true"
-              data-statsticker="true"
-              data-stats="USD"
-            ></div>
-          <hr style={{ width: "100%", opacity: "0.3" }} />
+          <div
+            className={styles.coin_table + " coinmarketcap-currency-widget"}
+            data-currencyid="1"
+            data-base="USD"
+            data-secondary=""
+            data-ticker="true"
+            data-rank="true"
+            data-marketcap="true"
+            data-volume="true"
+            data-statsticker="true"
+            data-stats="USD"
+          ></div>
+          
           <div className={styles.rss_content}>
             {" "}
             <hr
@@ -156,7 +140,7 @@ export default function MainMenuPage() {
                 marginRight: "20px",
               }}
             />{" "}
-            {typeof state != "undefined" ? (
+            {typeof rssData != "undefined" ? (
               <div>
                 <div
                   style={{
@@ -172,14 +156,14 @@ export default function MainMenuPage() {
                     height={14}
                     alt="rss icon"
                   />{" "}
-                  <Link href={state.link}>
+                  <Link href={rssData.link}>
                     <a>
-                      <h5 className={styles.rss_title}>{state.title}</h5>
+                      <h5 className={styles.rss_title}>{rssData.title}</h5>
                     </a>
                   </Link>
                 </div>
                 <ul className={styles.rss_body}>
-                  {state.items.map((i) => (
+                  {rssData.items.map((i) => (
                     <li className={styles.item_link} key={i.title}>
                       <Link href={i.url}>
                         <a> {i.title} </a>
@@ -197,3 +181,13 @@ export default function MainMenuPage() {
     </div>
   );
 }
+
+export const getStaticProps = async () => {
+  const tr_data = await fetch(tr_post_url_limited)
+    .then((res) => res.json())
+    .then((data) => data.reverse());
+
+  return {
+    props: { trData: tr_data },
+  };
+};

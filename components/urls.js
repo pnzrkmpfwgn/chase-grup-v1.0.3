@@ -17,3 +17,7 @@ export const tr_rss_url = "http://localhost:1337/tr-getrssinfo";
 export const en_rss_url = "http://localhost:1337/en-getrssinfo";
 export const tr_slides_url = "http://localhost:1337/tr-sliders";
 export const en_slides_url = "http://localhost:1337/en-sliders";
+export const tr_posts_url = "http://localhost:1337/posts";
+export const en_posts_url = "http://localhost:1337/en-posts";
+export const tr_post_url_limited = "http://localhost:1337/posts?limit=4"
+export const en_post_url_limited = "http://localhost:1337/en-posts?limit=4"
