@@ -45,3 +45,10 @@
   background-color: #413b36;
 }
 
+.dropdown_content p:nth-child(1n):hover{
+  color:gray;
+}
+
+.dropdown_content p:nth-child(2):hover{
+  color:gray;
+}

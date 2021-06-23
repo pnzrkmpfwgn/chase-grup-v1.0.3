@@ -11,7 +11,11 @@ function Dropdown() {
   const [dropdownStyle, setDropdownStyle] = useState(styles.dropdown);
 
   useEffect(() => {
-    setInitialLangValue(Cookies.get("language") || "tr");
+    if(Cookies.get("language")==="" || typeof Cookies.get("language")==="undefined"){
+      setInitialLangValue("tr");
+    }else{
+      setInitialLangValue(Cookies.get("language"));
+    }
   }, [state.language]);
 
   const onClickHandler = (option) => {
@@ -19,7 +23,8 @@ function Dropdown() {
       type: option,
       payload: option,
     });
-    Cookies.set("language", option);
+    
+    Cookies.set("language", option,{sameSite:'none', secure:true});
     setDropdownStyle(styles.dropdown);
   };
   return (

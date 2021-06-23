@@ -10,14 +10,40 @@ import {
   tr_summary_url,
   en_adresses_url,
   tr_adresses_url,
+  tr_posts_url,
+  en_posts_url,
 } from "./urls";
 import styles from "./footer.module.css";
+import { tr } from "date-fns/locale";
 
 export default function FooterSection() {
   const { state, dispatch } = useContext(Context);
   const [socialLinks, setSocialLinks] = useState();
+  const [trPost, setTrPost] = useState();
+  const [enPost, setEnPost] = useState();
   const [data, setData] = useState();
   const [adress, setAdress] = useState();
+
+  useEffect(async () => {
+    const controller = new AbortController();
+
+    await fetch(tr_posts_url, { method: "GET", signal: controller.signal })
+      .then((res) => res.json())
+      .then((data) => {
+        setTrPost(data.slice(0, 3));
+      });
+
+    await fetch(en_posts_url, { method: "GET", signal: controller.signal })
+      .then((res) => res.json())
+      .then((data) => {
+        setEnPost(data.slice(0, 3));
+      });
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
   useEffect(async () => {
     await fetch(social_media_url, { method: "GET" })
       .then((res) => res.json())
@@ -72,28 +98,33 @@ export default function FooterSection() {
 
           <div title="Son Yazılar" className={styles.last_entries}>
             <hr style={{ opacity: 0.3 }}></hr>
-            <h3> {state.language === "TR" ? "Son Yazılar" : "Last Posts"} </h3>
-            <ul className={styles.links}>
-              <li>
-                <Link href="/">
-                  <a>lorem ipsum dolor sit amet</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/">
-                  <a>lorem</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/">
-                  <a>lorem</a>
-                </Link>
-              </li>
-            </ul>
+            <h3> {state.language === "tr" ? "Son Yazılar" : "Last Posts"} </h3>
+            {typeof trPost == "undefined" && typeof enPost == "undefined" ? (
+              <Loading />
+            ) : (
+              <ul className={styles.links} >
+                {state.language === "tr"
+                  ? trPost.map((post) => (
+                      <li key={post.id}>
+                        {" "}
+                        <Link href={`/tr/posts/${post.id}`}>
+                          <a>{post.title}</a>
+                        </Link>{" "}
+                      </li>
+                    ))
+                  : enPost.map((post) => (
+                      <li key={post.id}>
+                        <Link href={`/en/posts/${post.id}`}>
+                          <a>{post.title}</a>
+                        </Link>
+                      </li>
+                    ))}
+              </ul>
+            )}
           </div>
           <div className={styles.contact} title="İletişim">
             <hr style={{ minWidth: "210px", opacity: 0.3 }}></hr>
-            <h3>{state.language === "TR" ? "İletişim" : "Contact"}</h3>
+            <h3>{state.language === "tr" ? "İletişim" : "Contact"}</h3>
             <address>
               {adress.map((i) => {
                 return (
