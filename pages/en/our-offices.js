@@ -9,6 +9,10 @@ export default function Ofislerimiz(){
         await fetch(en_offices_url,{method:"GET",signal:controller.signal}).then(res => res.json()).then(data=>{
             setState(data);
         })
+
+        return ()=>{
+            controller.abort();
+        }
     },[])
     return <div className={styles.container} >
         {typeof state!="undefined"? 
