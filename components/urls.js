@@ -13,3 +13,7 @@ export const offices_url="http://localhost:1337/offices";
 export const en_offices_url="http://localhost:1337/en-offices";
 export const contact_url="http://localhost:1337/contacts";
 export const en_contact_url="http://localhost:1337/en-contacts";
+export const tr_rss_url = "http://localhost:1337/tr-getrssinfo";
+export const en_rss_url = "http://localhost:1337/en-getrssinfo";
+export const tr_slides_url = "http://localhost:1337/tr-sliders";
+export const en_slides_url = "http://localhost:1337/en-sliders";
