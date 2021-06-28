@@ -5,11 +5,12 @@ import styles from '../../styles/posts.module.css';
 import Loading from '../../components/Loading';
 import date from '../../utils/date';
 import InfiniteScroll from "react-infinite-scroll-component";
+import Error from "../../components/Error";
 import { useState } from "react";
 
 export default function Posts({trData}) {
 /* I know this looks extremely stupid and actually it's ¯\_(ツ)_/¯ */
-  const [data,setData]=useState({items:trData.slice(0,4)})
+  const [data,setData]=useState({items:trData})
 const fetchMore=()=>{
   const initial=4
   setTimeout(()=>{
@@ -17,7 +18,10 @@ const fetchMore=()=>{
       items:trData.slice(0,initial+4)
     })
   },1500)
-}
+  }
+  if (trData.error) {
+    return <Error data={trData.data} />
+  }
   return <div className={styles.posts}>
     <h3 className={styles.title} > Daha Fazla Haber </h3>
    {typeof trData != "undefined" ? (
@@ -58,10 +62,23 @@ const fetchMore=()=>{
   </div>
 }
 
-export const getStaticProps=async()=>{
-  const tr_data = await fetch(tr_posts_url).then(res => res.json()).then(data=>data)
-
-  return {
-    props:{trData:tr_data.reverse()}
+export const getStaticProps = async () => {
+  try {
+    const tr_data = await fetch(tr_posts_url).then(res => res.json()).then(data => data)
+    
+    return {
+      props:{trData:tr_data.reverse()}
+    }
+  } catch (error) {
+    const tr_data = {
+      error: true,
+      data:error.toString()
+    }
+    return {
+      props:{trData:tr_data}
+    }
   }
+ 
+
+  
 }

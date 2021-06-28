@@ -46,7 +46,7 @@ export default function Header({ visible, breakpoint }) {
         }
       });
     } catch (error) {
-      throw new error(error)
+      return <div style={{color:"white"}}> Birşeyler ters gitti </div>
     }
     return () => {
       controller.abort();

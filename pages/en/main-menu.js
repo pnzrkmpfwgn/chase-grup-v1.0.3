@@ -6,6 +6,7 @@ import Next from "../../components/nextArrow";
 import Previous from "../../components/prevArrow";
 import Slider from "react-slick";
 import date from '../../utils/date';
+import Error from "../../components/Error";
 import {
   base_url,
   en_post_url_limited,
@@ -54,6 +55,9 @@ export default function MainMenuPage({ enData }) {
       controller.abort();
     };
   }, []);
+  if (enData.error) {
+    return <Error data={enData.data} />
+  }
   return (
     <div className={styles.container}>
       <main>
@@ -182,9 +186,23 @@ export default function MainMenuPage({ enData }) {
   );
 }
 
+
 export const getStaticProps = async () => {
-  const en_data = await fetch(en_post_url_limited).then(res => res.json()).then(data => data)
-  return {
-    props: { enData: en_data.reverse() },
-  };
+  try {
+    const en_data = await fetch(en_post_url_limited).then(res => res.json()).then(data => data)
+    return {
+      props: { enData: en_data.reverse() },
+    };
+  } catch (error) {
+    const en_data = {
+      error: true,
+      data:error.toString()
+    }
+    return {
+      props: {
+        enData:en_data
+      }
+    }
+  }
+ 
 };

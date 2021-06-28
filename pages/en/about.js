@@ -3,6 +3,7 @@ import { en_about_url,base_url } from "../../components/urls";
 import { useEffect, useState} from "react";
 import styles from "../../styles/about.module.css";
 import Loading from "../../components/Loading";
+import Error from "../../components/Error";
 export default function AboutPage() {
 
   const [info, setInfo] = useState({
@@ -12,8 +13,13 @@ export default function AboutPage() {
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
   const [logos, setLogos] = useState([]);
+  const [error, setError] = useState({
+    status: false,
+    data:""
+  });
   useEffect(async () => {
-    await fetch(en_about_url)
+    try {
+      await fetch(en_about_url)
       .then((res) => res.json())
       .then((data) => { 
         setInfo({
@@ -24,7 +30,16 @@ export default function AboutPage() {
         setImage2(data[0].image2.url);
         setLogos(data[0].Logos);
       });
+    } catch (error) {
+      setError({
+        status: true,
+        data:error.toString()
+      })
+    }
   }, []);
+  if (error.status) {
+    return <Error data={error.data} />
+  }
   return (
     <div id="About" className={styles.container}>
       <div className={styles.zigzag}></div>

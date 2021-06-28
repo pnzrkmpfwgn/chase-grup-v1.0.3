@@ -2,14 +2,29 @@ import {useEffect,useState} from 'react'
 import styles from '../../styles/offices.module.css';
 import Loading from '../../components/Loading';
 import { offices_url } from '../../components/urls'
+import Error from '../../components/Error';
 export default function Ofislerimiz(){
-    const [state,setState] = useState();
+    const [state, setState] = useState();
+    const [error, setError] = useState({
+        status: false,
+        data:""
+    })
     useEffect(async()=>{
         const controller = new AbortController();
-        await fetch(offices_url,{method:"GET",signal:controller.signal}).then(res => res.json()).then(data=>{
-            setState(data);
-        })
-    },[])
+        try {
+            await fetch(offices_url,{method:"GET",signal:controller.signal}).then(res => res.json()).then(data=>{
+                setState(data);
+            })
+        } catch (error) {
+            setError({
+                status: true,
+                data:error.toString()
+            })
+        }
+    }, [])
+    if (error.status) {
+        return <Error data={error.data} />
+    }
     return <div className={styles.container} >
         {typeof state!="undefined"? 
                 state.map(i => <div key={i.id} >

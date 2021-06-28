@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "cypress open"
   },
   "dependencies": {
     "date-fns": "^2.22.1",
@@ -16,5 +17,8 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-markdown": "^6.0.2",
     "react-slick": "^0.28.1"
+  },
+  "devDependencies": {
+    "cypress": "^7.6.0"
   }
 }
