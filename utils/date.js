@@ -1,5 +1,5 @@
 import {formatWithOptions} from 'date-fns/fp'
-import {en,tr} from 'date-fns/locale'
+import {en,tr} from 'date-fns'
 const date=(dateText,lang)=>{
     let newDate=[]
     for(let i = 0; i < dateText.length;i++){

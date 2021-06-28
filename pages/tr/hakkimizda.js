@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import { Context } from "../../context";
 import styles from "../../styles/about.module.css";
 import Loading from "../../components/Loading";
+import Error from '../../components/Error';
 export default function HakkimizdaPage() {
   const { state, dispatch } = useContext(Context);
   const [info, setInfo] = useState({
@@ -13,8 +14,13 @@ export default function HakkimizdaPage() {
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
   const [logos, setLogos] = useState([]);
+  const [error, setError] = useState({
+    status: false,
+    data:""
+  })
   useEffect(async () => {
-    await fetch(tr_about_url)
+    try {
+      await fetch(tr_about_url)
       .then((res) => res.json())
       .then((data) => {
         setInfo({
@@ -25,7 +31,16 @@ export default function HakkimizdaPage() {
         setImage2(data[0].image2.url);
         setLogos(data[0].Logos);
       });
+    } catch (error) {
+      setError({
+        status: true,
+        data:error.toString()
+      })
+    }
   }, []);
+  if (error.status) {
+    return <Error data={error.data} />
+  }
   return (
     <div id="Hakkımızda" className={styles.container}>
       <div className={styles.zigzag}></div>

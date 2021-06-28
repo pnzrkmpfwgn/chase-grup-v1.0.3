@@ -5,7 +5,8 @@ import Loading from "../../components/Loading";
 import Next from "../../components/nextArrow";
 import Previous from "../../components/prevArrow";
 import Slider from "react-slick";
-import date from '../../utils/date';
+import date from "../../utils/date";
+import Error from '../../components/Error';
 import {
   base_url,
   tr_post_url_limited,
@@ -40,20 +41,32 @@ export default function MainMenuPage({ trData }) {
   };
   useEffect(async () => {
     const controller = new AbortController();
-    await fetch(tr_rss_url, { method: "GET", signal: controller.signal })
-      .then((res) => res.json())
-      .then((data) => {
-        setRssData(data);
-      });
-    await fetch(tr_slides_url, { method: "GET", signal: controller.signal })
-      .then((res) => res.json())
-      .then((data) => {
-        setSlides(data[0].sliders);
-      });
+    try {
+      await fetch(tr_rss_url, { method: "GET", signal: controller.signal })
+        .then((res) => res.json())
+        .then((data) => {
+          setRssData(data);
+        });
+    } catch (err) {
+      return <div style={{ color: "white" }}> Birşeyler Ters gitti {err} </div>;
+    }
+    try {
+      await fetch(tr_slides_url, { method: "GET", signal: controller.signal })
+        .then((res) => res.json())
+        .then((data) => {
+          setSlides(data[0].sliders);
+        });
+    } catch (err) {
+      return <div style={{ color: "white" }}> Birşeyler Ters gitti {err} </div>;
+    }
     return () => {
       controller.abort();
     };
   }, []);
+  if (trData.error) {
+    return <Error data={trData.data} />
+  }
+  
   return (
     <div className={styles.container}>
       <main>
@@ -103,7 +116,13 @@ export default function MainMenuPage({ trData }) {
                   </Link>
                   <p className={styles.excerpt}>{post.excerpt}</p>
                   <div styles={styles.post_stats}>
-                    <i className={"far fa-clock"}style={{ marginRight: "10px" }}> {date(post.created_at,"tr")}</i>
+                    <i
+                      className={"far fa-clock"}
+                      style={{ marginRight: "10px" }}
+                    >
+                      {" "}
+                      {date(post.created_at, "tr")}
+                    </i>
                     <i className={"far fa-eye"}> {post.views}</i>
                   </div>
                 </div>
@@ -111,8 +130,9 @@ export default function MainMenuPage({ trData }) {
             ) : (
               <Loading />
             )}
-          <Link href="/tr/dahafazlaposta"><a className={styles.more_posts} >Daha fazla haber</a></Link>
-
+            <Link href="/tr/dahafazlaposta">
+              <a className={styles.more_posts}>Daha fazla haber</a>
+            </Link>
           </div>
         </div>
 
@@ -129,7 +149,7 @@ export default function MainMenuPage({ trData }) {
             data-statsticker="true"
             data-stats="USD"
           ></div>
-          
+
           <div className={styles.rss_content}>
             {" "}
             <hr
@@ -183,11 +203,23 @@ export default function MainMenuPage({ trData }) {
 }
 
 export const getStaticProps = async () => {
-  const tr_data = await fetch(tr_post_url_limited)
-    .then((res) => res.json())
-    .then((data) => data.reverse());
+  try {
+    const tr_data = await fetch(tr_post_url_limited)
+      .then((res) => res.json())
+      .then((data) => data.reverse());
+    return {
+      props: { trData: tr_data.reverse() },
+    };
+  } catch (error) {
+    const tr_data = {
+      error: true,
+      data:error.toString()
+    };
 
-  return {
-    props: { trData: tr_data },
-  };
+    return {
+      props: {
+        trData: tr_data,
+      },
+    };
+  }
 };
