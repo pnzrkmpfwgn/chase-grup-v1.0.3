@@ -14,7 +14,7 @@ import {
   en_posts_url,
 } from "./urls";
 import styles from "./footer.module.css";
-import { tr } from "date-fns/locale";
+
 
 export default function FooterSection() {
   const { state, dispatch } = useContext(Context);

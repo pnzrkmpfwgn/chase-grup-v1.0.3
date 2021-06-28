@@ -3,8 +3,6 @@ import { base_url,tr_posts_url,en_posts_url } from "../../../components/urls";
 import styles from '../../../styles/single_post.module.css';
 import date from '../../../utils/date';
 import Image from 'next/image'
-import { useContext } from "react";
-import {Context} from '../../../context';
 export default function Post({post}){
    const postDate = date(post.created_at,"tr")
     return <>

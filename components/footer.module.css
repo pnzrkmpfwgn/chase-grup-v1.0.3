@@ -89,6 +89,7 @@
 @media (max-width:768px) and (min-width:426px){
     .container{
         margin-top:0;
+        font-size:15px;
     }
 }
 @media (max-width:425px){

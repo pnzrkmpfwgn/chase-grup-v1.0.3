@@ -1,4 +1,3 @@
-const Cookies = require("js-cookie");
 module.exports = {
   images: {
     domains: [

@@ -1,12 +1,11 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { en_nav_url, nav_url, base_url, images_url } from "./urls";
-import { Context } from "../context";
+
 import Mobile from "./mobile_nav";
 import NavSection from "./nav";
 import Loading from "./Loading";
 
 export default function Header({ visible, breakpoint }) {
-  const { state, dispatch } = useContext(Context);
   const [trData, setTrData] = useState();
   const [enData, setEnData] = useState();
   const [trPath, setTrPath] = useState("");

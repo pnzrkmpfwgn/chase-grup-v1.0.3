@@ -152,7 +152,7 @@
 
 @media (max-width: 1024px) and (min-width: 425px) {
   .container {
-    height: 160vh;
+    height: 200vh;
   }
   .aside_content {
     margin-left: 50px;

@@ -5,7 +5,7 @@ import styles from "../../styles/posts.module.css";
 import Loading from "../../components/Loading";
 import date from "../../utils/date";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import Error from "../../components/Error";
 
 export default function Posts({ enData }) {

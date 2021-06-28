@@ -8,6 +8,7 @@
     margin-top:50px;
     margin-left:350px;
     word-wrap: break-word;
+    width:100%;
   }
 
   .post{
@@ -65,4 +66,15 @@
   .excerpt{
       color:white;
 
+  }
+
+  @media (max-width:768px){
+    .posts{
+      font-size:24px;
+      width:100%;
+      margin:0;
+    }
+    .post{
+      width:100%;
+    }
   }
