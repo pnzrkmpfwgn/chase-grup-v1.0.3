@@ -16,7 +16,7 @@ function Dropdown() {
     }else{
       setInitialLangValue(Cookies.get("language"));
     }
-  }, []);
+  }, [state.language]);
   const onClickHandler = (option) => {
     dispatch({
       type: option,

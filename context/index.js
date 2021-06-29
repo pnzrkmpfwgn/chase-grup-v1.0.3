@@ -4,7 +4,7 @@ import {language} from './reducers/language';
 import Cookies from 'js-cookie';
 //initial state
 const initialState={
-    language:Cookies.get("language") || "tr",
+    language:Cookies.get("language") ,
 }
 
 
