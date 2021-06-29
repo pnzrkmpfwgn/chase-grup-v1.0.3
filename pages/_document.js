@@ -9,6 +9,7 @@ class MyDocument extends Document {
             type="text/javascript"
             src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"
           ></script>
+          <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png"/>
         </Head>
         <body>
           <div
@@ -20,6 +21,7 @@ class MyDocument extends Document {
             show-symbol-logo="true"
             style={{position:"fixed",top:"0",zIndex:"1000"}}
           />
+          
           <Main />
           <NextScript />
         </body>
