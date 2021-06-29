@@ -16,14 +16,13 @@ function Dropdown() {
     }else{
       setInitialLangValue(Cookies.get("language"));
     }
-  }, [state.language]);
-
+  }, []);
   const onClickHandler = (option) => {
     dispatch({
       type: option,
       payload: option,
     });
-    
+    console.log(option)
     Cookies.set("language", option,{sameSite:'none', secure:true});
     setDropdownStyle(styles.dropdown);
   };

@@ -6,7 +6,8 @@ import Next from "../../components/nextArrow";
 import Previous from "../../components/prevArrow";
 import Slider from "react-slick";
 import date from "../../utils/date";
-import Error from '../../components/Error';
+import Error from "../../components/Error";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   base_url,
   tr_post_url_limited,
@@ -64,140 +65,165 @@ export default function MainMenuPage({ trData }) {
     };
   }, []);
   if (trData.error) {
-    return <Error data={trData.data} />
+    return <Error data={trData.data} />;
   }
-  
+
+  const variants = {
+    visible: {
+      opacity: 1,
+      translateX: 0,
+      transition: { ease: "easeOut", duration: 1.5, delay: 2 },
+    },
+    hidden: { opacity: 0, translateX: "-200px" },
+  };
+
   return (
     <div className={styles.container}>
       <main>
         {typeof slides != undefined ? (
-          <Slider className={styles.slider} {...settings}>
-            {slides.map((i) => (
-              <img
-                className={styles.slides}
-                key={i.id}
-                src={base_url + i.url}
-              />
-            ))}
-          </Slider>
+          <motion.div
+            key="1"
+            initial={{ translateX: "-100px", opacity: 0 }}
+            animate={{ translateX: 0, opacity: 1 }}
+            transition={{ ease: "easeOut", duration: 1, delay: "0.9s" }}
+          >
+            <Slider className={styles.slider} {...settings}>
+              {slides.map((i) => (
+                <img
+                  className={styles.slides}
+                  key={i.id}
+                  src={base_url + i.url}
+                />
+              ))}
+            </Slider>
+          </motion.div>
         ) : (
           <Loading />
         )}
       </main>
-      <div className={styles.container2}>
-        <div className={styles.posts_container}>
-          <div>
-            <h1
-              className={styles.title}
-              style={{ color: "white", fontWeight: "bold" }}
-            >
-              {" "}
-              {"KRİPTO PARA HABERLERİ"}{" "}
-            </h1>
-          </div>
-          <div style={{ color: "white" }} className={styles.posts}>
-            {typeof trData != "undefined" ? (
-              trData.map((post) => (
-                <div className={styles.post} key={post.id}>
-                  <Link href={`/tr/posts/${post.id}`}>
-                    <a className={styles.link}>
-                      <Image
-                        className={styles.image}
-                        src={
-                          post.image.formats.medium === undefined
-                            ? base_url + post.image.url
-                            : base_url + post.image.formats.medium.url
-                        }
-                        width={400}
-                        height={300}
-                      ></Image>
-                      {post.title}
-                    </a>
-                  </Link>
-                  <p className={styles.excerpt}>{post.excerpt}</p>
-                  <div styles={styles.post_stats}>
-                    <i
-                      className={"far fa-clock"}
-                      style={{ marginRight: "10px" }}
-                    >
-                      {" "}
-                      {date(post.created_at, "tr")}
-                    </i>
-                    <i className={"far fa-eye"}> {post.views}</i>
+
+      <motion.div
+        key="2"
+        initial="hidden"
+        animate="visible"
+        variants={variants}
+        transition={{ ease: "easeOut", duration: 1.5, delay: 2 }}
+      >
+        <div className={styles.container2}>
+          <div className={styles.posts_container}>
+            <div>
+              <h1
+                className={styles.title}
+                style={{ color: "white", fontWeight: "bold" }}
+              >
+                {" "}
+                {"KRİPTO PARA HABERLERİ"}{" "}
+              </h1>
+            </div>
+            <div style={{ color: "white" }} className={styles.posts}>
+              {typeof trData != "undefined" ? (
+                trData.map((post) => (
+                  <div key={post.id} className={styles.post}>
+                    <Link href={`/tr/posts/${post.id}`}>
+                      <a className={styles.link}>
+                        <Image
+                          className={styles.image}
+                          src={
+                            post.image.formats.medium === undefined
+                              ? base_url + post.image.url
+                              : base_url + post.image.formats.medium.url
+                          }
+                          width={400}
+                          height={300}
+                        ></Image>
+                        {post.title}
+                      </a>
+                    </Link>
+                    <p className={styles.excerpt}>{post.excerpt}</p>
+                    <div styles={styles.post_stats}>
+                      <i
+                        className={"far fa-clock"}
+                        style={{ marginRight: "10px" }}
+                      >
+                        {" "}
+                        {date(post.created_at, "tr")}
+                      </i>
+                      <i className={"far fa-eye"}> {post.views}</i>
+                    </div>
                   </div>
-                </div>
-              ))
-            ) : (
-              <Loading />
-            )}
-            <Link href="/tr/dahafazlaposta">
-              <a className={styles.more_posts}>Daha fazla haber</a>
-            </Link>
+                ))
+              ) : (
+                <Loading />
+              )}
+              <Link href="/tr/dahafazlaposta">
+                <a className={styles.more_posts}>Daha fazla haber</a>
+              </Link>
+            </div>
           </div>
+
+          <aside className={styles.aside_content}>
+            <div
+              className={styles.coin_table + " coinmarketcap-currency-widget"}
+              data-currencyid="1"
+              data-base="USD"
+              data-secondary=""
+              data-ticker="true"
+              data-rank="true"
+              data-marketcap="true"
+              data-volume="true"
+              data-statsticker="true"
+              data-stats="USD"
+            ></div>
+
+            <div className={styles.rss_content}>
+              {" "}
+              <hr
+                style={{
+                  width: "1px",
+                  height: "100%",
+                  opacity: "0.3",
+                  marginRight: "20px",
+                }}
+              />{" "}
+              {typeof rssData != "undefined" ? (
+                <div>
+                  <div
+                    style={{
+                      marginLeft: "5px",
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src="/images/rss.png"
+                      width={14}
+                      height={14}
+                      alt="rss icon"
+                    />{" "}
+                    <Link href={rssData.link}>
+                      <a>
+                        <h5 className={styles.rss_title}>{rssData.title}</h5>
+                      </a>
+                    </Link>
+                  </div>
+                  <ul className={styles.rss_body}>
+                    {rssData.items.map((i) => (
+                      <li className={styles.item_link} key={i.title}>
+                        <Link href={i.url}>
+                          <a> {i.title} </a>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <Loading />
+              )}
+            </div>
+          </aside>
         </div>
-
-        <aside className={styles.aside_content}>
-          <div
-            className={styles.coin_table + " coinmarketcap-currency-widget"}
-            data-currencyid="1"
-            data-base="USD"
-            data-secondary=""
-            data-ticker="true"
-            data-rank="true"
-            data-marketcap="true"
-            data-volume="true"
-            data-statsticker="true"
-            data-stats="USD"
-          ></div>
-
-          <div className={styles.rss_content}>
-            {" "}
-            <hr
-              style={{
-                width: "1px",
-                height: "100%",
-                opacity: "0.3",
-                marginRight: "20px",
-              }}
-            />{" "}
-            {typeof rssData != "undefined" ? (
-              <div>
-                <div
-                  style={{
-                    marginLeft: "5px",
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    src="/images/rss.png"
-                    width={14}
-                    height={14}
-                    alt="rss icon"
-                  />{" "}
-                  <Link href={rssData.link}>
-                    <a>
-                      <h5 className={styles.rss_title}>{rssData.title}</h5>
-                    </a>
-                  </Link>
-                </div>
-                <ul className={styles.rss_body}>
-                  {rssData.items.map((i) => (
-                    <li className={styles.item_link} key={i.title}>
-                      <Link href={i.url}>
-                        <a> {i.title} </a>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              <Loading />
-            )}
-          </div>
-        </aside>
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -213,7 +239,7 @@ export const getStaticProps = async () => {
   } catch (error) {
     const tr_data = {
       error: true,
-      data:error.toString()
+      data: error.toString(),
     };
 
     return {

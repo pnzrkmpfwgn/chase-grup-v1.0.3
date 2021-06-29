@@ -6,11 +6,11 @@ import styles from "./mobile_nav.module.css";
 import { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { Context } from "../context";
-
+import { motion } from "framer-motion";
 /* array veya objeyi map ile renderlarken onClick kullanan zavallı ruha sesleniyorum başka bir fonsksiyona ata onu onClick ile execute et */
 /* To poor soul who is rendering with map and using onClick and changing state with it just form another function and execute it on onClick via arrow function */
 
-export default function Mobile({ logo,trData,enData,trPath,enPath }) {
+export default function Mobile({ logo, trData, enData, trPath, enPath }) {
   const { state, dispatch } = useContext(Context);
   const [index, setIndex] = useState();
   const [show, setShow] = useState(false);
@@ -21,21 +21,20 @@ export default function Mobile({ logo,trData,enData,trPath,enPath }) {
   });
   const router = useRouter();
 
-
-  useEffect(()=>{
-    if(trData!== undefined || enData !== undefined){
-      if(typeof index === "undefined"){
+  useEffect(() => {
+    if (trData !== undefined || enData !== undefined) {
+      if (typeof index === "undefined") {
         return;
       }
-      if(state.language==="tr"){
-        router.push("/tr/" + trData.menu_item[index].page.slug)
+      if (state.language === "tr") {
+        router.push("/tr/" + trData.menu_item[index].page.slug);
       }
-      if(state.language==="en"){
-        router.push("/en/" + enData.menu_item[index].en_page.slug)
+      if (state.language === "en") {
+        router.push("/en/" + enData.menu_item[index].en_page.slug);
       }
     }
-  },[state.language])
-  
+  }, [state.language]);
+
   useEffect(() => {
     const onResize = () => {
       setWindow(document.body.clientWidth);
@@ -63,42 +62,75 @@ export default function Mobile({ logo,trData,enData,trPath,enPath }) {
     }
   }, [window]);
 
-  const onClickHandler=(e)=>{
+  const onClickHandler = (e) => {
     setShow(!open);
-    setIndex(e)
-  }
+    setIndex(e);
+  };
   return (
-    <div className={styles.topnav}>
-      <div className={styles.logo_icon_dropdown_container}>
-        {logo === "" ? (
-          <Loading />
-        ) : (
-          <Link href={state.language === "tr" ? trPath : enPath}>
-            <a>
-              <Image
-                src={logo}
-                width={dimensions.width}
-                height={dimensions.height}
-              ></Image>
-            </a>
-          </Link>
-        )}
-        <div>
-          <i onClick={()=>setShow(!show)} className={styles.icon + " fa fa-bars fa-lg"}></i>
-          <Dropdown />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ ease: "easeOut", duration: 1 }}
+    >
+      <div className={styles.topnav}>
+        <div className={styles.logo_icon_dropdown_container}>
+          {logo === "" ? (
+            <Loading />
+          ) : (
+            <Link href={state.language === "tr" ? trPath : enPath}>
+              <a>
+                <Image
+                  src={logo}
+                  width={dimensions.width}
+                  height={dimensions.height}
+                ></Image>
+              </a>
+            </Link>
+          )}
+          <div>
+            <i
+              onClick={() => setShow(!show)}
+              className={styles.icon + " fa fa-bars fa-lg"}
+            ></i>
+            <Dropdown />
+          </div>
         </div>
+        <ul>
+          {trData === undefined && enData === undefined ? (
+            <Loading />
+          ) : state.language === "tr" ? (
+            trData.menu_item.map((i, index) => {
+              return show ? (
+                <li
+                  className={
+                    show ? styles.link + " " + styles.link_open : styles.link
+                  }
+                  key={i.id}
+                >
+                  <Link href={"/" + state.language + "/" + i.page.slug}>
+                    <a onClick={() => onClickHandler(index)}>{i.title}</a>
+                  </Link>
+                </li>
+              ) : null;
+            })
+          ) : (
+            enData.menu_item.map((i, index) => {
+              return show ? (
+                <li
+                  className={
+                    show ? styles.link + " " + styles.link_open : styles.link
+                  }
+                  key={i.id}
+                >
+                  <Link href={"/" + state.language + "/" + i.en_page.slug}>
+                    <a onClick={() => onClickHandler(index)}>{i.title}</a>
+                  </Link>
+                </li>
+              ) : null;
+            })
+          )}
+        </ul>
       </div>
-      <ul>     
-        {trData === undefined && enData === undefined ? <Loading /> : state.language==="tr" ? trData.menu_item.map((i,index)=>{
-          return(show ? <li className={show ? styles.link + " " + styles.link_open : styles.link} key={i.id}>
-          <Link href={"/" + state.language + "/" + i.page.slug}><a onClick={()=>onClickHandler(index)} >{i.title}</a></Link>
-        </li> : null)
-        }) : enData.menu_item.map((i,index)=>{
-          return (show ? <li className={show ? styles.link + " " + styles.link_open : styles.link} key={i.id}>
-          <Link href={"/" + state.language + "/" + i.en_page.slug}><a onClick={()=>onClickHandler(index)} >{i.title}</a></Link>
-        </li> : null)
-        }) }
-      </ul>
-    </div>
+    </motion.div>
   );
 }

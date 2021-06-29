@@ -27,7 +27,7 @@ export default function Ofislerimiz() {
       controller.abort();
     };
   }, []);
-  if (error) {
+  if (error.status) {
     return <Error data={error.data} />;
   }
   return (
