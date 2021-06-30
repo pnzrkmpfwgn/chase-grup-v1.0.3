@@ -1,7 +1,8 @@
 import styles from '../../styles/contact.module.css';
 import Loading from '../../components/Loading';
 import { contact_url } from "../../components/urls";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import Head from 'next/head';
 export default function ContactPage(){
     const [state, setState] = useState();
     const [error, setError] = useState({
@@ -28,6 +29,11 @@ export default function ContactPage(){
         return <Error data={error.data} />
     }
     return <div className={styles.container}>
+        <Head>
+        <title>İletişim</title>
+        <meta name="description" content="Chase grup şirketi, 2019 yılında açılan ofisleri ile faaliyete geçen, kaliteli, güvenilir ve düşük komisyonlar ile Kıbrısın en iyi kripto para alım-satım merkezidir." />
+        <meta name="keywords" content="Chasegrup, chasegrup, ChaseGrup, Kıbrıs, Girne, Lefkoşa, kibris, lefkosa, girne, kripto para, kripto, para, bitcoin, ethereum, usdt, Bitcoin, Ethereum, USDT, ada, ADA, cardano, Cardano, cryptocurrency,CryptoCurrency" />
+        </Head>
         {typeof state !="undefined" ?
         <div>
             <h2 className={styles.title}>{state[0].title}</h2>

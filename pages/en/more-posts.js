@@ -7,6 +7,7 @@ import date from "../../utils/date";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useState } from "react";
 import Error from "../../components/Error";
+import Head from 'next/head';
 
 export default function Posts({ enData }) {
   /* I know this looks extremely stupid and actually it's ¯\_(ツ)_/¯ */
@@ -25,6 +26,11 @@ export default function Posts({ enData }) {
 
   return (
     <div className={styles.posts}>
+      <Head>
+      <title>More News</title>
+        <meta name="description" content="Chase Grup stepped into the world of finance in 2019, Chase Grup is a Cryptourrency trading center with high quality service, trust worthy business, and low commisions." />
+        <meta name="keywords" content="Chasegrup, chasegrup, ChaseGrup, Cyprus, cyprus, Kyrenia, Nicosia, kyrenia, nicosia,  Crpytocurrency, Cypto, Currency,  bitcoin, ethereum, usdt, Bitcoin, Ethereum, USDT, ada, ADA, cardano, Cardano, cryptocurrency,CryptoCurrency" />
+      </Head>
       <h3 className={styles.title}> More News </h3>
       {typeof enData != "undefined" ? (
         <InfiniteScroll
@@ -49,8 +55,8 @@ export default function Posts({ enData }) {
           {enData.map((post) => (
             <div className={styles.post} key={post.id}>
               <div className={styles.image_container}>
-                <Link href={post.slug}>
-                  <a className={styles.link} href={post.slug}>
+                <Link href={`/en/posts/${post.id.toString()}`}>
+                  <a className={styles.link}>
                     <Image
                       className={styles.image}
                       src={
@@ -65,7 +71,7 @@ export default function Posts({ enData }) {
                 </Link>
               </div>
               <div className={styles.info_container}>
-                <Link href={post.slug}>
+                <Link href={`/en/posts/${post.id.toString()}`}>
                   <a className={styles.link}>{post.title}</a>
                 </Link>
                 <p className={styles.excerpt}>{post.excerpt}</p>

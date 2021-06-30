@@ -1,9 +1,9 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-
 class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      //Daha iyi bir alternatif bulana kadar hiç yoktan iyidir.
+      <Html lang="tr" >
         <Head>
           <script
             type="text/javascript"

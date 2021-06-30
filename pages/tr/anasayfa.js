@@ -7,7 +7,8 @@ import Previous from "../../components/prevArrow";
 import Slider from "react-slick";
 import date from "../../utils/date";
 import Error from "../../components/Error";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import Head from 'next/head';
 import {
   base_url,
   tr_post_url_limited,
@@ -79,6 +80,11 @@ export default function MainMenuPage({ trData }) {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>Anasayfa</title>
+        <meta name="description" content="Chase grup şirketi, 2019 yılında açılan ofisleri ile faaliyete geçen, kaliteli, güvenilir ve düşük komisyonlar ile Kıbrısın en iyi kripto para alım-satım merkezidir." />
+        <meta name="keywords" content="Chasegrup, chasegrup, ChaseGrup, Kıbrıs, Girne, Lefkoşa, kibris, lefkosa, girne, kripto para, kripto, para, bitcoin, ethereum, usdt, Bitcoin, Ethereum, USDT, ada, ADA, cardano, Cardano, cryptocurrency,CryptoCurrency" />
+      </Head>
       <main>
         {typeof slides != undefined ? (
           <motion.div

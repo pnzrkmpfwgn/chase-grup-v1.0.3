@@ -7,6 +7,7 @@ import Previous from "../../components/prevArrow";
 import Slider from "react-slick";
 import date from '../../utils/date';
 import Error from "../../components/Error";
+import Head from 'next/head';
 import {
   base_url,
   en_post_url_limited,
@@ -60,6 +61,11 @@ export default function MainMenuPage({ enData }) {
   }
   return (
     <div className={styles.container}>
+      <Head>
+      <title>Main Menu</title>
+        <meta name="description" content="Chase Grup stepped into the world of finance in 2019, Chase Grup is a Cryptourrency trading center with high quality service, trust worthy business, and low commisions." />
+        <meta name="keywords" content="Chasegrup, chasegrup, ChaseGrup, Cyprus, cyprus, Kyrenia, Nicosia, kyrenia, nicosia,  Crpytocurrency, Cypto, Currency,  bitcoin, ethereum, usdt, Bitcoin, Ethereum, USDT, ada, ADA, cardano, Cardano, cryptocurrency,CryptoCurrency" />
+      </Head>
       <main>
         {typeof slides != undefined ? (
           <Slider className={styles.slider} {...settings}>

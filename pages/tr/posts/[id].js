@@ -3,10 +3,16 @@ import { base_url,tr_posts_url,en_posts_url } from "../../../components/urls";
 import styles from '../../../styles/single_post.module.css';
 import date from '../../../utils/date';
 import Image from 'next/image'
+import Head from 'next/head';
 export default function Post({post}){
    const postDate = date(post.created_at,"tr")
     return <>
-    <div className={styles.container}>
+      <div className={styles.container}>
+        <Head>
+        <title>{post.title}</title>
+        <meta name="description" content="Chase grup şirketi, 2019 yılında açılan ofisleri ile faaliyete geçen, kaliteli, güvenilir ve düşük komisyonlar ile Kıbrısın en iyi kripto para alım-satım merkezidir." />
+        <meta name="keywords" content="Chasegrup, chasegrup, ChaseGrup, Kıbrıs, Girne, Lefkoşa, kibris, lefkosa, girne, kripto para, kripto, para, bitcoin, ethereum, usdt, Bitcoin, Ethereum, USDT, ada, ADA, cardano, Cardano, cryptocurrency,CryptoCurrency" />
+        </Head>
     <h1 className={styles.title}> {post.title} </h1>
     <div className={styles.stats_info}>
       <i  style={{marginRight:"10px"}} className="far fa-clock" > {postDate},  {post.author} tarafından </i>

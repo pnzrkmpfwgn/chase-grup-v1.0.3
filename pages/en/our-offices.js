@@ -3,6 +3,7 @@ import styles from "../../styles/offices.module.css";
 import Loading from "../../components/Loading";
 import Error from "../../components/Error";
 import { en_offices_url } from "../../components/urls";
+import Head from 'next/head';
 export default function Ofislerimiz() {
   const [state, setState] = useState();
   const [error, setError] = useState({
@@ -32,6 +33,11 @@ export default function Ofislerimiz() {
   }
   return (
     <div className={styles.container}>
+      <Head>
+      <title>Our Offices</title>
+        <meta name="description" content="Chase Grup stepped into the world of finance in 2019, Chase Grup is a Cryptourrency trading center with high quality service, trust worthy business, and low commisions." />
+        <meta name="keywords" content="Chasegrup, chasegrup, ChaseGrup, Cyprus, cyprus, Kyrenia, Nicosia, kyrenia, nicosia,  Crpytocurrency, Cypto, Currency,  bitcoin, ethereum, usdt, Bitcoin, Ethereum, USDT, ada, ADA, cardano, Cardano, cryptocurrency,CryptoCurrency" />
+      </Head>
       {typeof state != "undefined" ? (
         state.map((i) => (
           <div key={i.id}>

@@ -5,6 +5,7 @@ import { Context } from "../../context";
 import styles from "../../styles/about.module.css";
 import Loading from "../../components/Loading";
 import Error from '../../components/Error';
+import Head from 'next/head';
 export default function HakkimizdaPage() {
   const { state, dispatch } = useContext(Context);
   const [info, setInfo] = useState({
@@ -43,6 +44,11 @@ export default function HakkimizdaPage() {
   }
   return (
     <div id="Hakkımızda" className={styles.container}>
+      <Head>
+      <title>Hakkımızda</title>
+        <meta name="description" content="Chase grup şirketi, 2019 yılında açılan ofisleri ile faaliyete geçen, kaliteli, güvenilir ve düşük komisyonlar ile Kıbrısın en iyi kripto para alım-satım merkezidir." />
+        <meta name="keywords" content="Chasegrup, chasegrup, ChaseGrup, Kıbrıs, Girne, Lefkoşa, kibris, lefkosa, girne, kripto para, kripto, para, bitcoin, ethereum, usdt, Bitcoin, Ethereum, USDT, ada, ADA, cardano, Cardano, cryptocurrency,CryptoCurrency" />
+      </Head>
       <div className={styles.zigzag}></div>
       <h3 className={styles.title} > {typeof info.title !== "undefined" ? info.title : <Loading />} </h3>
 

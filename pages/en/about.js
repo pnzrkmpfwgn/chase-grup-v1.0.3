@@ -4,6 +4,7 @@ import { useEffect, useState} from "react";
 import styles from "../../styles/about.module.css";
 import Loading from "../../components/Loading";
 import Error from "../../components/Error";
+import Head from 'next/head';
 export default function AboutPage() {
 
   const [info, setInfo] = useState({
@@ -42,6 +43,11 @@ export default function AboutPage() {
   }
   return (
     <div id="About" className={styles.container}>
+      <Head>
+      <title>About</title>
+        <meta name="description" content="Chase Grup stepped into the world of finance in 2019, Chase Grup is a Cryptourrency trading center with high quality service, trust worthy business, and low commisions." />
+        <meta name="keywords" content="Chasegrup, chasegrup, ChaseGrup, Cyprus, cyprus, Kyrenia, Nicosia, kyrenia, nicosia,  Crpytocurrency, Cypto, Currency,  bitcoin, ethereum, usdt, Bitcoin, Ethereum, USDT, ada, ADA, cardano, Cardano, cryptocurrency,CryptoCurrency" />
+      </Head>
       <div className={styles.zigzag}></div>
       <h3 className={styles.title} > {typeof info.title !== "undefined" ? info.title : <Loading />} </h3>
 

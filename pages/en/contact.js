@@ -3,6 +3,7 @@ import Loading from '../../components/Loading';
 import { en_contact_url } from "../../components/urls";
 import { useEffect, useState } from "react";
 import Error from '../../components/Error';
+import Head from 'next/head';
 export default function ContactPage(){
     const [state, setState] = useState();
     const [error, setError] = useState({
@@ -29,6 +30,11 @@ export default function ContactPage(){
         return <Error data={error.data} />
     }
     return <div className={styles.container}>
+        <Head>
+        <title>Contact</title>
+        <meta name="description" content="Chase Grup stepped into the world of finance in 2019, Chase Grup is a Cryptourrency trading center with high quality service, trust worthy business, and low commisions." />
+        <meta name="keywords" content="Chasegrup, chasegrup, ChaseGrup, Cyprus, cyprus, Kyrenia, Nicosia, kyrenia, nicosia,  Crpytocurrency, Cypto, Currency,  bitcoin, ethereum, usdt, Bitcoin, Ethereum, USDT, ada, ADA, cardano, Cardano, cryptocurrency,CryptoCurrency" />
+        </Head>
         {typeof state !="undefined" ?
         <div>
             <h2 className={styles.title}>{state[0].title.toUpperCase()}</h2>
