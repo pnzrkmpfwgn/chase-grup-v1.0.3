@@ -1,4 +1,4 @@
-export const base_url = "http://localhost:1337";
+export const base_url = "https://multicultural-toque-19160.herokuapp.com";
 export const images_url = `${base_url}/images`;
 export const nav_url = `${base_url}/main-menu`;
 export const en_nav_url = `${base_url}/en-main-menu`;

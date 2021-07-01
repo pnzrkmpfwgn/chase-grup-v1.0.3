@@ -59,7 +59,7 @@ export default function Ofislerimiz() {
                 className={styles.map}
                 loading="lazy"
                 style={{ border: "0" }}
-                src={i.location}
+                src={`https://www.google.com/maps/embed?pb=!${i.location}`}
                 width="600"
                 height="450"
                 allowFullScreen="allowfullscreen"
