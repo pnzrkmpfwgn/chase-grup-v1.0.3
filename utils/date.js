@@ -1,5 +1,8 @@
-import {formatWithOptions} from 'date-fns/fp'
-import {en,tr} from 'date-fns'
+import { formatWithOptions } from 'date-fns/fp'
+import enUS from 'date-fns/locale/en-US'
+import tr from 'date-fns/locale/tr'
+
+
 const date=(dateText,lang)=>{
     let newDate=[]
     for(let i = 0; i < dateText.length;i++){
@@ -12,7 +15,7 @@ const date=(dateText,lang)=>{
     if(lang==="tr"){
         dateToString = formatWithOptions({locale:tr},'d MMMM yyyy')
     }else if(lang==="en"){
-        dateToString = formatWithOptions({locale:en},"d MMMM yyyy")
+        dateToString = formatWithOptions({locale:enUS},"d MMMM yyyy")
     }else{
         return;
     }
