@@ -59,7 +59,7 @@ export default function AboutPage() {
       ) : (
         <Loading />
       )}
-      <p className={styles.text} > {typeof info.text != "undefined" && info.text} </p>
+      <p title="About Us" id="about_us" className={styles.text} > {typeof info.text != "undefined" && info.text} </p>
       <div className={styles.logos} > {typeof logos !="undefined" ? 
           logos.map(i => {
           return <Image key={i.id} src={base_url + i.url} width={190} height={190}/>

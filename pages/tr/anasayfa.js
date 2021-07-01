@@ -126,7 +126,7 @@ export default function MainMenuPage({ trData }) {
                 {"KRİPTO PARA HABERLERİ"}{" "}
               </h1>
             </div>
-            <div style={{ color: "white" }} className={styles.posts}>
+            <div id="postlar" title="Postlar" style={{ color: "white" }} className={styles.posts}>
               {typeof trData != "undefined" ? (
                 trData.map((post) => (
                   <div key={post.id} className={styles.post}>
@@ -145,7 +145,7 @@ export default function MainMenuPage({ trData }) {
                         {post.title}
                       </a>
                     </Link>
-                    <p className={styles.excerpt}>{post.excerpt}</p>
+                    <p id="kisaca" title="Kısaca" className={styles.excerpt}>{post.excerpt}</p>
                     <div styles={styles.post_stats}>
                       <i
                         className={"far fa-clock"}
@@ -162,7 +162,7 @@ export default function MainMenuPage({ trData }) {
                 <Loading />
               )}
               <Link href="/tr/dahafazlaposta">
-                <a className={styles.more_posts}>Daha fazla haber</a>
+                <a title="Daha Fazla Haber" id="daha_fazla_haber" className={styles.more_posts}>Daha fazla haber</a>
               </Link>
             </div>
           </div>
@@ -209,7 +209,7 @@ export default function MainMenuPage({ trData }) {
                     />{" "}
                     <Link href={rssData.link}>
                       <a>
-                        <h5 className={styles.rss_title}>{rssData.title}</h5>
+                        <h5 title="Haberler" id="haberler" className={styles.rss_title}>{rssData.title}</h5>
                       </a>
                     </Link>
                   </div>

@@ -34,14 +34,14 @@ function Dropdown() {
       }
       onMouseLeave={() => setDropdownStyle(styles.dropdown)}
     >
-      <button className={styles.dropbtn}>
+      <button id={state.language==="tr" ? "dil_secimi":"select_language"} title={state.language==="tr" ? "Dil Seçimi" : "Select Language"} className={styles.dropbtn}>
         {" "}
         {initialLangValue.toUpperCase()}{" "}
         <i className="fas fa-chevron-down" style={{ marginLeft: "5px" }}></i>{" "}
       </button>
       <div className={styles.dropdown_content}>
-        <p onClick={() => onClickHandler("tr")}>TR</p>
-        <p onClick={() => onClickHandler("en")}>EN</p>
+        <p id={state.language==="tr" ? "Turkce" :"Turkish"} title={state.language==="tr" ? "Türkçe" : "Turkish"} onClick={() => onClickHandler("tr")}>TR</p>
+        <p id={state.language==="tr" ? "Ingilizce" : "English"} title={state.language==="tr" ? "İngilizce" : "English"} onClick={() => onClickHandler("en")}>EN</p>
       </div>
     </div>
   );

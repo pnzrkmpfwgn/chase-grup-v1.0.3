@@ -82,7 +82,10 @@ export default function Mobile({ logo, trData, enData, trPath, enPath }) {
                 <Image
                   src={logo}
                   width={dimensions.width}
-                  height={dimensions.height}
+                    height={dimensions.height}
+                    alt="Logo"
+                    id="Logo"
+                    title="Logo"
                 ></Image>
               </a>
             </Link>
@@ -108,7 +111,7 @@ export default function Mobile({ logo, trData, enData, trPath, enPath }) {
                   key={i.id}
                 >
                   <Link href={"/" + state.language + "/" + i.page.slug}>
-                    <a onClick={() => onClickHandler(index)}>{i.title}</a>
+                    <a id={i.title} title={i.title} onClick={() => onClickHandler(index)}>{i.title}</a>
                   </Link>
                 </li>
               ) : null;
@@ -123,7 +126,7 @@ export default function Mobile({ logo, trData, enData, trPath, enPath }) {
                   key={i.id}
                 >
                   <Link href={"/" + state.language + "/" + i.en_page.slug}>
-                    <a onClick={() => onClickHandler(index)}>{i.title}</a>
+                    <a id={i.title} title={i.title} onClick={() => onClickHandler(index)}>{i.title}</a>
                   </Link>
                 </li>
               ) : null;

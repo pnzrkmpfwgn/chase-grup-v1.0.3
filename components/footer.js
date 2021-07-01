@@ -82,13 +82,13 @@ export default function FooterSection() {
         </div>
       ) : (
         <div className={styles.row}>
-          <div className={styles.summary} title="Özet Kısmı" id="özet_kismi">
+          <div className={styles.summary} title={state.language==="tr" ? "Özet Kısmı" : "Summary Section"} id={state.language==="tr" ? "ozet_kismi" : "summary_section"}>
             <Image
               src={base_url + data[0].logo[0].url}
               width={310}
               height={90}
             ></Image>
-            <p className={styles.text}>
+            <p id={state.language==="tr" ? "Ozet" : "Summary"} title={state.language ? "Özet" : "Summary"} className={styles.text}>
               {" "}
               {data.map((i) => {
                 return i.info;
@@ -96,7 +96,7 @@ export default function FooterSection() {
             </p>
           </div>
 
-          <div title="Son Yazılar" className={styles.last_entries}>
+          <div id={state.language==="tr" ? "Son_Yazilar" : "Last_Entries"} title={state.language==="tr"?"Son Yazılar" : "Last Entries"} className={styles.last_entries}>
             <hr style={{ opacity: 0.3 }}></hr>
             <h3> {state.language === "tr" ? "Son Yazılar" : "Last Posts"} </h3>
             {typeof trPost == "undefined" && typeof enPost == "undefined" ? (
@@ -108,21 +108,21 @@ export default function FooterSection() {
                       <li key={post.id}>
                         {" "}
                         <Link href={`/tr/posts/${post.id}`}>
-                          <a>{post.title}</a>
+                          <a title={post.title} >{post.title}</a>
                         </Link>{" "}
                       </li>
                     ))
                   : enPost.map((post) => (
                       <li key={post.id}>
                         <Link href={`/en/posts/${post.id}`}>
-                          <a>{post.title}</a>
+                          <a title={post.title} >{post.title}</a>
                         </Link>
                       </li>
                     ))}
               </ul>
             )}
           </div>
-          <div className={styles.contact} title="İletişim">
+          <div className={styles.contact} id={state.language==="tr" ? "Iletisim" : "Contact"} title={ state.language==="tr" ? "İletişim" : "Contact"}>
             <hr style={{ minWidth: "210px", opacity: 0.3 }}></hr>
             <h3>{state.language === "tr" ? "İletişim" : "Contact"}</h3>
             <address>
@@ -135,14 +135,14 @@ export default function FooterSection() {
               })}
             </address>
             <div>
-              <a href={socialLinks[0].Facebook}>
+              <a id="Facebook" title="Facebook" href={socialLinks[0].Facebook}>
                 <i
                   className={
                     styles.social_links + " fab fa-facebook-square fa-lg"
                   }
                 ></i>
               </a>
-              <a href={socialLinks[0].Instagram}>
+              <a id="Instagram" title="Instagram" href={socialLinks[0].Instagram}>
                 <i
                   className={
                     styles.social_links + " fab fa-instagram-square fa-lg"

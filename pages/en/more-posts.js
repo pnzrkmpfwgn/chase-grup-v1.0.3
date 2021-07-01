@@ -25,7 +25,7 @@ export default function Posts({ enData }) {
   };
 
   return (
-    <div className={styles.posts}>
+    <div id="more_posts" title="More Posts" className={styles.posts}>
       <Head>
       <title>More News</title>
         <meta name="description" content="Chase Grup stepped into the world of finance in 2019, Chase Grup is a Cryptourrency trading center with high quality service, trust worthy business, and low commisions." />
@@ -56,7 +56,7 @@ export default function Posts({ enData }) {
             <div className={styles.post} key={post.id}>
               <div className={styles.image_container}>
                 <Link href={`/en/posts/${post.id.toString()}`}>
-                  <a className={styles.link}>
+                  <a title={post.title} className={styles.link}>
                     <Image
                       className={styles.image}
                       src={

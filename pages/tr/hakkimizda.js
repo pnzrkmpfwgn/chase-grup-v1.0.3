@@ -60,7 +60,7 @@ export default function HakkimizdaPage() {
       ) : (
         <Loading />
       )}
-      <p className={styles.text} > {typeof info.text != "undefined" && info.text} </p>
+      <p id="hakkimizda" title="Hakkımızda" className={styles.text} > {typeof info.text != "undefined" && info.text} </p>
       <div className={styles.logos} > {typeof logos !="undefined" ? 
           logos.map(i => {
           return <Image key={i.id} src={base_url + i.url} width={190} height={190}/>

@@ -39,7 +39,7 @@ export default function ContactPage(){
         <div>
             <h2 className={styles.title}>{state[0].title.toUpperCase()}</h2>
             <hr  />
-            <address>
+            <address title="Contact" id="contact" >
                 <strong>Kyrenia Address :</strong><p>{state[0].address1}</p>
                 <strong>Landphone :</strong><p>{state[0].landphone1}</p>
                 <strong>Mobile :</strong><p>{state[0].mobile1}</p>

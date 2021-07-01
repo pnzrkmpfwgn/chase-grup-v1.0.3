@@ -34,10 +34,10 @@ const fetchMore=()=>{
       <div>
           <InfiniteScroll  dataLength={trData.length - 1} next={fetchMore} hasMore={trData[trData.length] === undefined ? false : true} loader={<Loading />} endMessage={<p style={{ marginTop: "20px", color: "#e58c17", fontSize: "24px", fontWeight: "bold" }}> Gönderilerin sonu... </p>} >
               {trData.map((post) => (
-              <div className={styles.post} key={post.id}>
+              <div  className={styles.post} key={post.id}>
                 <div className={styles.image_container}>
                 <Link href={`/tr/posts/${post.id.toString()}`}>
-                  <a className={styles.link} >
+                  <a title={post.title} className={styles.link} >
                     <Image
                       className={styles.image}
                       src={
@@ -54,7 +54,7 @@ const fetchMore=()=>{
                 </div>
                 <div className={styles.info_container}>
                   <Link href={`/tr/posts/${post.id}`}><a className={styles.link} >{post.title}</a></Link>
-                <p className={styles.excerpt}>{post.excerpt}</p>
+                <p id="kisaca" title="Kısaca" className={styles.excerpt}>{post.excerpt}</p>
                 <div styles={styles.post_stats}>
                   <i className={"far fa-clock"}style={{ marginRight: "10px",color:"white" }}> {date(post.created_at,"tr")}</i>
                   <i className={"far fa-eye"} style={{color:"white"}} > {post.views}</i>

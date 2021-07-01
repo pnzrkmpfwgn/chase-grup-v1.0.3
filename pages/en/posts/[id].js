@@ -20,7 +20,7 @@ export default function Post({post}){
       <i className="far fa-eye"> {post.views}</i>
     </div>
     <Image src={base_url + post.image.url} layout="responsive" width={400} height={300}></Image>
-    <article className={styles.article}>
+    <article id="article" title="Article" className={styles.article}>
     <ReactMarkdown>
       {post.Article}
     </ReactMarkdown>

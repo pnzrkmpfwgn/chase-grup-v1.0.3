@@ -92,7 +92,7 @@ export default function MainMenuPage({ enData }) {
               {"Cryptocurrency News"}{" "}
             </h1>
           </div>
-          <div style={{ color: "white" }} className={styles.posts}>
+          <div title="Posts" id="posts" style={{ color: "white" }} className={styles.posts}>
             {typeof enData != "undefined" ? (
               enData.map((post) => (
                 <div className={styles.post} key={post.id}>
@@ -111,9 +111,9 @@ export default function MainMenuPage({ enData }) {
                       {post.title}
                     </a>
                   </Link>
-                  <p className={styles.excerpt}>{post.excerpt}</p>
+                  <p id="excerpt" title="Excerpt"  className={styles.excerpt}>{post.excerpt}</p>
                   <div styles={styles.post_stats}>
-                    <i className={"far fa-clock"}style={{ marginRight: "10px" }}> {date(post.created_at,"en")}</i>
+                    <i className={"far fa-clock"} style={{ marginRight: "10px" }}> {date(post.created_at,"en")}</i>
                     <i className={"far fa-eye"}> {post.views}</i>
                   </div>
                 </div>
@@ -121,7 +121,7 @@ export default function MainMenuPage({ enData }) {
             ) : (
               <Loading />
             )}
-          <Link href="/en/more-posts"><a className={styles.more_posts} >More Posts </a></Link>
+          <Link href="/en/more-posts"><a title="More Posts" id="more_posts" className={styles.more_posts} >More Posts </a></Link>
 
           </div>
         </div>
@@ -168,7 +168,7 @@ export default function MainMenuPage({ enData }) {
                   />{" "}
                   <Link href={rssData.link}>
                     <a>
-                      <h5 className={styles.rss_title}>{rssData.title}</h5>
+                      <h5 title="News" id="news" className={styles.rss_title}>{rssData.title}</h5>
                     </a>
                   </Link>
                 </div>

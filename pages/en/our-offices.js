@@ -40,7 +40,7 @@ export default function Ofislerimiz() {
       </Head>
       {typeof state != "undefined" ? (
         state.map((i) => (
-          <div key={i.id}>
+          <div title="Office Locations" id="office_locations" key={i.id}>
             <h3 className={styles.title}> {i.title.toUpperCase()} </h3>
             <address>
               <strong className={styles.address}> Address: </strong>{" "}

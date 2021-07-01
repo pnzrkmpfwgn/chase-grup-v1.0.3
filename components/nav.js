@@ -64,7 +64,7 @@ export default function NavSection({
         ) : (
           <Link href={state.language === "tr" ? trPath : enPath}>
             <a style={logoStyle}>
-              <Image src={logo} width={400} height={100} />
+              <Image alt="Logo" id="Logo" title="Logo" src={logo} width={400} height={100} />
             </a>
           </Link>
         )}
@@ -78,6 +78,8 @@ export default function NavSection({
                   <li key={i.id}>
                     <Link href={"/" + state.language + "/" + i.page.slug}>
                       <a
+                        id={i.title}
+                        title={i.title}
                         onClick={() => setIndex(index)}
                         className={styles.link}
                       >
@@ -93,6 +95,8 @@ export default function NavSection({
                   <li key={i.id}>
                     <Link href={"/" + state.language + "/" + i.en_page.slug}>
                       <a
+                        id={i.title}
+                        title={i.title}
                         onClick={() => setIndex(index)}
                         className={styles.link}
                       >
@@ -110,9 +114,3 @@ export default function NavSection({
     
   );
 }
-{/* <motion.div
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-transition={{ ease: "easeOut", duration: 1 }}
->
-</motion.div> */}

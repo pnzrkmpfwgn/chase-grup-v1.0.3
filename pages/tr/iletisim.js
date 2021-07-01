@@ -38,7 +38,7 @@ export default function ContactPage(){
         <div>
             <h2 className={styles.title}>{state[0].title}</h2>
             <hr  />
-            <address>
+            <address id="iletisim" title="İletişim">
                 <strong>Girne Adres :</strong><p>{state[0].address1}</p>
                 <strong>Tel(sabit) :</strong><p>{state[0].landphone1}</p>
                 <strong>Tel(mobil) :</strong><p>{state[0].mobile1}</p>

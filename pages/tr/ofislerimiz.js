@@ -35,7 +35,7 @@ export default function Ofislerimiz(){
         {typeof state!="undefined"? 
                 state.map(i => <div key={i.id} >
                     <h3 className={styles.title} > {i.title} </h3>
-                    <address>
+                    <address id="ofis_konumlari" title="Ofis Konumları" >
                        <strong className={styles.address} > Adres: </strong> <p> {i.adress.toUpperCase()} </p>
                         <strong> Tel(sabit): </strong> <p> {i.landphone} </p>
                         {i.mobile === null ? <div><br /> <br /> <br /></div> : <div><strong>Tel(Mobil):</strong> <p>{i.mobile}</p></div>}
