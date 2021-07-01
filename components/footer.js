@@ -79,21 +79,6 @@ export default function FooterSection() {
         </div>
       ) : (
         <div className={styles.row}>
-<<<<<<< HEAD
-          <div className={styles.summary} title={state.language==="tr" ? "Özet Kısmı" : "Summary Section"} id={state.language==="tr" ? "ozet_kismi" : "summary_section"}>
-            <Image
-              src={base_url + data[0].logo[0].url}
-              width={310}
-              height={90}
-            ></Image>
-            <p id={state.language==="tr" ? "Ozet" : "Summary"} title={state.language ? "Özet" : "Summary"} className={styles.text}>
-              {" "}
-              {data.map((i) => {
-                return i.info;
-              })}{" "}
-            </p>
-          </div>
-=======
           {typeof data != "undefined" ? (
             <div
               className={styles.summary}
@@ -115,7 +100,6 @@ export default function FooterSection() {
           ) : (
             <Loading />
           )}
->>>>>>> url
 
           <div id={state.language==="tr" ? "Son_Yazilar" : "Last_Entries"} title={state.language==="tr"?"Son Yazılar" : "Last Entries"} className={styles.last_entries}>
             <hr style={{ opacity: 0.3 }}></hr>
@@ -161,24 +145,6 @@ export default function FooterSection() {
                 <Loading />
               )}
             </address>
-<<<<<<< HEAD
-            <div>
-              <a id="Facebook" title="Facebook" href={socialLinks[0].Facebook}>
-                <i
-                  className={
-                    styles.social_links + " fab fa-facebook-square fa-lg"
-                  }
-                ></i>
-              </a>
-              <a id="Instagram" title="Instagram" href={socialLinks[0].Instagram}>
-                <i
-                  className={
-                    styles.social_links + " fab fa-instagram-square fa-lg"
-                  }
-                ></i>
-              </a>
-            </div>
-=======
             {typeof socialLinks != "undefined" ? (
               <div>
                 <a href={socialLinks[0].Facebook}>
@@ -199,7 +165,6 @@ export default function FooterSection() {
             ) : (
               <Loading />
             )}
->>>>>>> url
           </div>
         </div>
       )}

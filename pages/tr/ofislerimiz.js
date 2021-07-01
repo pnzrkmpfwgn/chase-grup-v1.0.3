@@ -32,22 +32,6 @@ export default function Ofislerimiz() {
     <div className={styles.container}>
       <Head>
         <title>Ofislerimiz</title>
-<<<<<<< HEAD
-        <meta name="description" content="Chase grup şirketi, 2019 yılında açılan ofisleri ile faaliyete geçen, kaliteli, güvenilir ve düşük komisyonlar ile Kıbrısın en iyi kripto para alım-satım merkezidir." />
-        <meta name="keywords" content="Chasegrup, chasegrup, ChaseGrup, Kıbrıs, Girne, Lefkoşa, kibris, lefkosa, girne, kripto para, kripto, para, bitcoin, ethereum, usdt, Bitcoin, Ethereum, USDT, ada, ADA, cardano, Cardano, cryptocurrency,CryptoCurrency" />
-        </Head>
-        {typeof state!="undefined"? 
-                state.map(i => <div key={i.id} >
-                    <h3 className={styles.title} > {i.title} </h3>
-                    <address id="ofis_konumlari" title="Ofis Konumları" >
-                       <strong className={styles.address} > Adres: </strong> <p> {i.adress.toUpperCase()} </p>
-                        <strong> Tel(sabit): </strong> <p> {i.landphone} </p>
-                        {i.mobile === null ? <div><br /> <br /> <br /></div> : <div><strong>Tel(Mobil):</strong> <p>{i.mobile}</p></div>}
-                        <iframe className={styles.map} loading="lazy" style={{border:"0"}} src={i.location} width="600" height="450" allowFullScreen="allowfullscreen"></iframe>
-                    </address>
-                </div>) 
-        :<Loading  />}
-=======
         <meta
           name="description"
           content="Chase grup şirketi, 2019 yılında açılan ofisleri ile faaliyete geçen, kaliteli, güvenilir ve düşük komisyonlar ile Kıbrısın en iyi kripto para alım-satım merkezidir."
@@ -89,7 +73,6 @@ export default function Ofislerimiz() {
       ) : (
         <Loading />
       )}
->>>>>>> url
     </div>
   );
 }
