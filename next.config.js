@@ -3,7 +3,8 @@ module.exports = {
     domains: [
       "s2.coinmarketcap.com",
       "localhost",
-      "multicultural-toque-19160.herokuapp.com"
+      "multicultural-toque-19160.herokuapp.com",
+      "www.master-7rqtwti-adhffcvxyccyi.de-2.platformsh.site"
     ] /*We have to configure this dynamically */,
   },
   /* async redirects kullanıp permenant:true opsiyonu kullanan zavallı ruha sesleniyorum tarayıcı cache'ni temizle ve .next 

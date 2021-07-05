@@ -15,37 +15,54 @@ export default function Header({ visible, breakpoint }) {
   useEffect(async () => {
     const controller = new AbortController();
     try {
-      await fetch(images_url, { method: "GET", signal: controller.signal })
-      .then((res) => res.json())
-      .then((data) => {
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].Name === "chase_logo") {
-            setLogo(base_url + data[i].image.url);
-          }
-        }
-      });
-    await fetch(nav_url, { method: "GET", signal: controller.signal })
-      .then((res) => res.json())
-      .then((data) => {
-        setTrData(data);
-        for (let i = 0; i < data.menu_item.length; i++) {
-          if (data.menu_item[i].title === "Anasayfa") {
-            setTrPath("/tr/" + data.menu_item[i].page.slug);
-          }
-        }
-      });
-    await fetch(en_nav_url, { method: "GET", signal: controller.signal })
-      .then((res) => res.json())
-      .then((data) => {
-        setEnData(data);
-        for (let i = 0; i < data.menu_item.length; i++) {
-          if (data.menu_item[i].title === "Main Menu") {
-            setEnPath("/en/" + data.menu_item[i].en_page.slug);
-          }
-        }
-      });
+        await Promise.all([
+        fetch(nav_url, { method: "GET", signal: controller.signal }),
+        fetch(en_nav_url, { method: "GET", signal: controller.signal }),
+        fetch(images_url, { method: "GET", signal: controller.signal })
+      ]).then(async ([trdata, endata, logodata]) => {
+        const trData = await trdata.json();
+        const enData = await endata.json();
+        const logo = await logodata.json();
+        return [trData, enData, logo];
+      }).then(data => {
+        setTrData(data[0]);
+        setEnData(data[1]);
+        setLogo(base_url +data[2][0].image.url)
+      })
+      // await fetch(images_url, { method: "GET", signal: controller.signal })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log("Executed")
+      //     for (let i = 0; i < data.length; i++) {
+      //       if (data[i].Name === "chase_logo") {
+      //         setLogo(base_url + data[i].image.url);
+      //       }
+      //     }
+      //   });
+      // await fetch(nav_url, { method: "GET", signal: controller.signal })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log("Executed")
+      //     setTrData(data);
+      //     for (let i = 0; i < data.menu_item.length; i++) {
+      //       if (data.menu_item[i].title === "Anasayfa") {
+      //         setTrPath("/tr/" + data.menu_item[i].page.slug);
+      //       }
+      //     }
+      //   });
+      // await fetch(en_nav_url, { method: "GET", signal: controller.signal })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log("Executed")
+      //     setEnData(data);
+      //     for (let i = 0; i < data.menu_item.length; i++) {
+      //       if (data.menu_item[i].title === "Main Menu") {
+      //         setEnPath("/en/" + data.menu_item[i].en_page.slug);
+      //       }
+      //     }
+      //   });
     } catch (error) {
-      return <div style={{color:"white"}}> Birşeyler ters gitti </div>
+      return <div style={{ color: "white" }}> Birşeyler ters gitti </div>
     }
     return () => {
       controller.abort();
@@ -56,7 +73,7 @@ export default function Header({ visible, breakpoint }) {
       {logo === "" ? (
         <Loading />
       ) : typeof trData!="undefined" && typeof enData!="undefined" ?  (
-        <nav>
+          <nav>
           {breakpoint ? (
             <Mobile
               trData={trData}

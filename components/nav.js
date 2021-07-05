@@ -6,7 +6,6 @@ import Dropdown from "./dropdown";
 import { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { Context } from "../context";
-import { motion } from "framer-motion";
 
 export default function NavSection({
   visible,
@@ -43,7 +42,7 @@ export default function NavSection({
       });
     }
   }, [visible]);
- 
+
   useEffect(() => {
     if (trData !== undefined || enData !== undefined) {
       if (typeof index === "undefined") {
@@ -57,60 +56,65 @@ export default function NavSection({
     }
   }, [state.language]);
   return (
-   
-      <div style={style} className={styles.navigation}>
-        {logo === "" ? (
-          <Loading />
-        ) : (
-          <Link href={state.language === "tr" ? trPath : enPath}>
-            <a style={logoStyle}>
-              <Image alt="Logo" id="Logo" title="Logo" src={logo} width={400} height={100} />
-            </a>
-          </Link>
-        )}
-        <div>
-          <ul className={styles.links_container}>
-            {trData === undefined || enData === undefined ? (
-              <Loading />
-            ) : state.language === "tr" ? (
-              trData.menu_item.map((i, index) => {
-                return (
-                  <li key={i.id}>
-                    <Link href={"/" + state.language + "/" + i.page.slug}>
-                      <a
-                        id={i.title}
-                        title={i.title}
-                        onClick={() => setIndex(index)}
-                        className={styles.link}
-                      >
-                        {i.title}
-                      </a>
-                    </Link>
-                  </li>
-                );
-              })
-            ) : (
-              enData.menu_item.map((i, index) => {
-                return (
-                  <li key={i.id}>
-                    <Link href={"/" + state.language + "/" + i.en_page.slug}>
-                      <a
-                        id={i.title}
-                        title={i.title}
-                        onClick={() => setIndex(index)}
-                        className={styles.link}
-                      >
-                        {i.title}
-                      </a>
-                    </Link>
-                  </li>
-                );
-              })
-            )}
-          </ul>
-        </div>
-        <Dropdown />
+    <div style={style} className={styles.navigation}>
+      {logo === "" ? (
+        <Loading />
+      ) : (
+        <Link href={state.language === "tr" ? trPath : enPath}>
+          <a style={logoStyle}>
+            <Image
+              alt="Logo"
+              id="Logo"
+              title="Logo"
+              src={logo}
+              width={400}
+              height={100}
+            />
+          </a>
+        </Link>
+      )}
+      <div>
+        <ul className={styles.links_container}>
+          {trData === undefined || enData === undefined ? (
+            <Loading />
+          ) : state.language === "tr" ? (
+            trData.menu_item.map((i, index) => {
+              return (
+                <li key={i.id}>
+                  <Link href={"/" + state.language + "/" + i.page.slug}>
+                    <a
+                      id={i.title}
+                      title={i.title}
+                      onClick={() => setIndex(index)}
+                      className={styles.link}
+                    >
+                      {i.title}
+                    </a>
+                  </Link>
+                </li>
+              );
+            })
+          ) : (
+            enData.menu_item.map((i, index) => {
+              return (
+                <li key={i.id}>
+                  <Link href={"/" + state.language + "/" + i.en_page.slug}>
+                    <a
+                      id={i.title}
+                      title={i.title}
+                      onClick={() => setIndex(index)}
+                      className={styles.link}
+                    >
+                      {i.title}
+                    </a>
+                  </Link>
+                </li>
+              );
+            })
+          )}
+        </ul>
       </div>
-    
+      <Dropdown />
+    </div>
   );
 }
